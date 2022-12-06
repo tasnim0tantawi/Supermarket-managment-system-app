@@ -1,0 +1,7 @@
+{
+  "name": "itcs444-project",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
