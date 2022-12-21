@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 export interface Product {
   id: number;
   name: string;
@@ -15,6 +16,7 @@ export interface Order {
   total_price: number;
   quantity: number;
   image: string;
+  date: Date;
 }
 export interface User {
   id: number;
