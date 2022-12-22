@@ -148,17 +148,19 @@ export class ColdStoreDataService {
       date: order.date
     })
 }
-/*
-getOrder(id: string): Observable<Order> {
+
+getOrder(id: string): Observable<Order | undefined> {
     return this.ordersCollection.doc<Order>(id).valueChanges().pipe(
       map(order => {
-        order.id = id;
+        if (order) {
+          order.id = id;
+        }
         return order;
       })
     );
 }
 
- */
+
  getOrders(): Observable<Order[]> {
     return this.orders;
 
@@ -186,17 +188,19 @@ getOrder(id: string): Observable<Order> {
     // delete user from firebase
     return this.usersCollection.doc(user.id).delete();
   }
-  /*
-  getUser(id: string): Observable<User> {
+
+  getUser(id: string): Observable<User | undefined> {
     return this.usersCollection.doc<User>(id).valueChanges().pipe(
       map(user => {
+        if (user) {
         user.id = id;
+        }
         return user;
       })
     );
   }
 
-   */
+
   getUsers(): Observable<User[]> {
     return this.users;
   }
@@ -223,17 +227,17 @@ getOrder(id: string): Observable<Order> {
   getProviders(): Observable<Provider[]> {
     return this.providers;
   }
-/*
-  getProvider(id: string): Observable<Provider> {
+
+  getProvider(id: string): Observable<Provider | undefined> {
     return this.providersCollection.doc<Provider>(id).valueChanges().pipe(
       map(provider => {
+        if (provider) {
         provider.id = id;
+        }
         return provider;
       }
     ));
   }
-
- */
 
 
   signIn(newEmail: string, newPassword: string): Promise<any> {
