@@ -6,6 +6,7 @@ import { DocumentReference } from '@angular/fire/compat/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ColdStoreDataService } from '../cold-store-data.service';
+import { ModalController, NavController } from '@ionic/angular';
 
 
 export interface user{
@@ -22,16 +23,11 @@ export interface user{
 export class LoginPage implements OnInit {
 
 
-
   ngOnInit() {
   }
 
 
-
-
- constructor(public afAuth: AngularFireAuth , public Datasrv: ColdStoreDataService) {
-
-     }
+ constructor(public afAuth: AngularFireAuth , public Datasrv: ColdStoreDataService, public modalController: ModalController, public navCtrl: NavController) { }
 
 
 
@@ -45,7 +41,18 @@ export class LoginPage implements OnInit {
           alert("Login Successful");
           this.Datasrv.logged=true;
           this.Datasrv.loggedEmail=this.email;
-          this.Datasrv.checkRole();
+          let role =this.Datasrv.checkRole();
+
+           if (role=="owner"){
+             this.navCtrl.navigateForward('/owner/tabs/tab1');
+            }
+            else if (role=="supplier"){
+              this.navCtrl.navigateForward('/supplier/tabs/tab1');
+            }
+            else if (role=="employee"){
+              this.navCtrl.navigateForward('/employee/tabs/tab1');
+            }
+
          })
          .catch( (err)=>{
           alert("error");

@@ -280,6 +280,7 @@ export class ColdStoreDataService {
         this.loggedRole="supplier";
       }
     }
+    return this.loggedRole;
   }
 
 

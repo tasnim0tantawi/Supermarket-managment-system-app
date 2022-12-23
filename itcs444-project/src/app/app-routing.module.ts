@@ -2,9 +2,18 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    path: 'owner',
+    loadChildren: () => import('./owner/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'supplier',
+    loadChildren: () => import('./supplier/tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'employee',
+    loadChildren: () => import('./employee/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'login',
@@ -16,19 +25,16 @@ const routes: Routes = [
   },
   {
     path: 'add-product',
-    loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
+    loadChildren: () => import('./owner/add-product/add-product.module').then(m => m.AddProductPageModule)
   },
-  {
-    path: 'owner-statistics',
-    loadChildren: () => import('./owner-statistics/owner-statistics.module').then( m => m.OwnerStatisticsPageModule)
-  },
+
   {
     path: 'product-details',
     loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   },
   {
     path: 'owner-orders',
-    loadChildren: () => import('./owner-orders/owner-orders.module').then( m => m.OwnerOrdersPageModule)
+    loadChildren: () => import('./owner/owner-orders/owner-orders.module').then(m => m.OwnerOrdersPageModule)
   }
 ];
 @NgModule({
