@@ -3,26 +3,11 @@ import { ModalController, NavController } from '@ionic/angular';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { DocumentReference } from '@angular/fire/compat/firestore';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ColdStoreDataService} from "../cold-store-data.service";
+import { ColdStoreDataService, shifts, User} from "../cold-store-data.service";
 
 
-export interface users {
-  id?:string;
-  email:string;
-  name: string;
-  role:string;
-}
-
-export interface shifts {
-  id?:string;
-  date:string;
-  shift1id: string;
-  shift1name: string;
-  shift2id: string;
-  shift2name: string;
-}
 
 @Component({
   selector: 'app-addshift',
@@ -32,10 +17,10 @@ export interface shifts {
 export class AddshiftPage implements OnInit {
 
 
-  users: Observable<users[]>;
-  usersCollectionRef: AngularFirestoreCollection<users>;
+  users: Observable<User[]>;
+  usersCollectionRef: AngularFirestoreCollection<User>;
 
-  public user : users = {} as users;
+  public user : User = {} as User;
 
 
   shifts: Observable<shifts[]>;

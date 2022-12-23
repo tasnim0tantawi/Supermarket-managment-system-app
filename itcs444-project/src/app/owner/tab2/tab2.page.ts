@@ -1,27 +1,12 @@
 import { Component } from '@angular/core';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { DocumentReference } from '@angular/fire/compat/firestore';
-import { map, take } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ColdStoreDataService} from "../../cold-store-data.service";
+import { ColdStoreDataService, User, shifts } from "../../cold-store-data.service";
 import { AddshiftPage } from '../../addshift/addshift.page';
 import { ModalController, NavController } from '@ionic/angular';
-export interface users {
-  id?:string;
-  email:string;
-  name: string;
-  role:string;
-}
 
-export interface shifts {
-  id?:string;
-  date:string;
-  shift1id: string;
-  shift1name: string;
-  shift2id: string;
-  shift2name: string;
-}
 
 
 @Component({
@@ -34,10 +19,10 @@ export interface shifts {
 export class Tab2Page {
 
 
-  users: Observable<users[]>;
-  usersCollectionRef: AngularFirestoreCollection<users>;
+  users: Observable<User[]>;
+  usersCollectionRef: AngularFirestoreCollection<User>;
 
-  public user : users = {} as users;
+  public user : User = {} as User;
 
 
   shifts: Observable<shifts[]>;
@@ -52,7 +37,7 @@ export class Tab2Page {
   show:boolean=false;
 
 
-  allusers:users[]=[];
+  allusers:User[]=[];
 
 
 
@@ -78,11 +63,6 @@ export class Tab2Page {
         });
       })
     );
-
-
-
-
-
 
 
   }

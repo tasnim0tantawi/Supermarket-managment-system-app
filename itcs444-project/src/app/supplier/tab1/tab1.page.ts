@@ -43,7 +43,6 @@ export class Tab1Page {
 
 
 
-
   allusers:users[]=[];
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {

@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { ColdStoreDataService} from "../../cold-store-data.service";
 import { AddshiftPage } from '../../addshift/addshift.page';
 import { ModalController, NavController } from '@ionic/angular';
+import firebase from "firebase/compat";
+import User = firebase.User;
 
 export interface users {
   id?:string;
@@ -30,56 +32,17 @@ export interface shifts {
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
-
-  users: Observable<users[]>;
-  usersCollectionRef: AngularFirestoreCollection<users>;
-
-  public user : users = {} as users;
-
-
-  shifts: Observable<shifts[]>;
-  shiftsCollectionRef: AngularFirestoreCollection<shifts>;
-
-
-  segchoice:string="shifts";
-  shiftchoice:string="s1";
-
-  selectedemp:string="";
-
-  show:boolean=false;
-
-
-  allusers:users[]=[];
+  orders = this.Datasrv.getOrders();
+  users: User[] = [];
 
 
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
       if (!this.Datasrv.logged || this.Datasrv.loggedRole!="owner"){
         this.navCtrl.navigateBack('/login');
+
+
       }
-      this.usersCollectionRef = this.afs.collection('users');
-          this.users = this.usersCollectionRef.snapshotChanges().pipe(
-            map(actions => {
-              return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, ...data };
-              });
-            })
-          );
-
-          this.shiftsCollectionRef = this.afs.collection('shifts');
-          this.shifts = this.shiftsCollectionRef.snapshotChanges().pipe(
-            map(actions => {
-              return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, ...data };
-              });
-            })
-          );
-
 
 
 
@@ -89,18 +52,8 @@ export class Tab1Page {
         }
 
 
-        async presentModal() {
-          const modal = await this.ModalCtrl.create({
-          component: AddshiftPage ,
-          backdropDismiss: false
-          });
-          return await modal.present();
-          }
 
 
-          changeshow(){
-            this.show=true;
-          }
 
 
 
