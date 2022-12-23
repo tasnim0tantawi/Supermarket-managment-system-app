@@ -190,8 +190,6 @@ export class ColdStoreDataService {
   }
 
 
-
-
   getOrders(): Observable<Order[]> {
     return this.orders;
 
@@ -269,7 +267,6 @@ export class ColdStoreDataService {
         }
       ));
   }
-
 
   checkRole(){
     for(let i=0;i<this.allUsers.length;i++){
