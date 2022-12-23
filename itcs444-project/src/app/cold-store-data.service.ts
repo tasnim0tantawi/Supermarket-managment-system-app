@@ -30,6 +30,7 @@ export interface User {
   username: string;
   role: string;
   password: string;
+  email: string;
 }
 export interface Provider {
   id?: string;
@@ -55,6 +56,17 @@ export class ColdStoreDataService {
 
   providers: Observable<Provider[]>;
   providersCollection: AngularFirestoreCollection<Provider>;
+
+  public logged: boolean = false;
+
+  public loggedEmail: string="";
+
+  public loggedId: string="";
+
+  public loggedRole:string="";
+
+  allUsers:User[]=[];
+
 
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {
     this.productsCollection = afs.collection<Product>('products');
@@ -240,9 +252,20 @@ getOrder(id: string): Observable<Order | undefined> {
   }
 
 
-  signIn(newEmail: string, newPassword: string): Promise<any> {
-    return this.afAuth.signInWithEmailAndPassword(newEmail, newPassword);
+  checkRole(){
+    for(let i=0;i<this.allUsers.length;i++){
+      if( this.allUsers[i].email==this.loggedEmail && this.allUsers[i].role=="owner") {
+        this.loggedRole="owner";
+      }
+      if( this.allUsers[i].email==this.loggedEmail && this.allUsers[i].role=="employee") {
+        this.loggedRole="employee";
+      }
+      if( this.allUsers[i].email==this.loggedEmail && this.allUsers[i].role=="supplier") {
+        this.loggedRole="supplier";
+      }
+    }
   }
+
 
 
 

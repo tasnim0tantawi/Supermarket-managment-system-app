@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <div align="center"><ion-title>ADD SHIFT</ion-title></div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <ion-item>
+    <ion-label>Select a Date</ion-label>
+    <ion-input placeholder="Enter a Date Here" [(ngModel)]="shift.date" type="date"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Select Shift 1 Employee</ion-label>
+  </ion-item>
+
+  <ion-select [(ngModel)]="s1">
+    <div *ngFor="let u of users | async">
+      <ion-select-option value="{{u.id}}" *ngIf="u.role=='employee'">{{u.name}}</ion-select-option>
+    </div>
+  </ion-select>
+
+  <ion-item>
+    <ion-label>Select Shift 2 Employee</ion-label>
+  </ion-item>
+
+  <ion-select [(ngModel)]="s2">
+    <div *ngFor="let u of users | async">
+      <ion-select-option value="{{u.id}}" *ngIf="u.role=='employee'">{{u.name}}</ion-select-option>
+    </div>
+  </ion-select>
+
+
+  <div align="center">
+    <ion-button fill="outline" color="dark" (click)="dismiss()">CLOSE</ion-button>
+    <ion-button fill="outline" color="primary" (click)="insert()">CREATE SHIFT</ion-button>
+  </div>
+
+
+  
+
+  
+
+</ion-content>

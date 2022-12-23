@@ -4,7 +4,7 @@ import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { DocumentReference } from '@angular/fire/compat/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { DataListService } from '../data-list.service';
+import { ColdStoreDataService} from "../cold-store-data.service";
 import { AddshiftPage } from '../addshift/addshift.page';
 import { ModalController, NavController } from '@ionic/angular';
 
@@ -41,7 +41,7 @@ export class Tab1Page {
   shifts: Observable<shifts[]>;
   shiftsCollectionRef: AngularFirestoreCollection<shifts>;
 
-  
+
   segchoice:string="shifts";
   shiftchoice:string="s1";
 
@@ -53,13 +53,13 @@ export class Tab1Page {
   allusers:users[]=[];
 
 
-  
 
 
-  
 
-    constructor(public afs: AngularFirestore , public Datasrv:DataListService,public ModalCtrl:ModalController, public navCtrl:NavController) {
-      this.usersCollectionRef = this.afs.collection('users'); 
+
+
+    constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
+      this.usersCollectionRef = this.afs.collection('users');
           this.users = this.usersCollectionRef.snapshotChanges().pipe(
             map(actions => {
               return actions.map(a => {
@@ -70,7 +70,7 @@ export class Tab1Page {
             })
           );
 
-          this.shiftsCollectionRef = this.afs.collection('shifts'); 
+          this.shiftsCollectionRef = this.afs.collection('shifts');
           this.shifts = this.shiftsCollectionRef.snapshotChanges().pipe(
             map(actions => {
               return actions.map(a => {
@@ -81,12 +81,12 @@ export class Tab1Page {
             })
           );
 
-          
 
 
-          
 
-         
+
+
+
         }
 
 
@@ -107,28 +107,28 @@ export class Tab1Page {
 
 
 
-         
 
 
 
 
 
-          
-            
-
-        
 
 
-        
 
 
-  
-      
+
+
+
+
+
+
+
+
   }
 
 
- 
 
-    
+
+
 
 

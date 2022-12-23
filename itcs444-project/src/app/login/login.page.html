@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <div align="center"><ion-title>Log In</ion-title></div>
+    <div slot="start"><ion-button fill="clear" routerLink="/tabs/tab1" routerDirection="forward">Back</ion-button></div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input placeholder="Enter Email Here" [(ngModel)]="email" type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Password</ion-label>
+    <ion-input placeholder="Enter Password Here" [(ngModel)]="password" type="password"></ion-input>
+  </ion-item>
+
+
+  <div align="center">
+    <ion-button (click)="login()">Sign In</ion-button>
+  </div>
+
+
+
+
+</ion-content>
