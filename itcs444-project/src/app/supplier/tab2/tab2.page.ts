@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ColdStoreDataService} from "../../cold-store-data.service";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,8 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(public Datasrv: ColdStoreDataService, public navCtrl:NavController) {
+
+  }
 
 }

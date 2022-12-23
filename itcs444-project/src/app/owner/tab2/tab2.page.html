@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Shifts
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,6 +12,116 @@
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div *ngIf="this.Datasrv.logged==false">
+    <div align="center"><ion-button routerLink="/login" routerDirection="forward">Log in</ion-button></div>
+  </div>
+
+
+  <div *ngIf="this.Datasrv.logged==true && this.Datasrv.loggedRole=='owner'">
+    <ion-segment [(ngModel)]="segchoice">
+      <ion-segment-button value="shifts">Shifts Schedule</ion-segment-button>
+      <ion-segment-button value="vspe">View Specific Shifts</ion-segment-button>
+      <ion-segment-button value="free">Free Time</ion-segment-button>
+      <ion-segment-button value="trade">Trade</ion-segment-button>
+    </ion-segment>
+
+
+    <div *ngIf="segchoice=='shifts'">
+
+      <ion-card *ngFor="let s of shifts | async" color="medium">
+
+        <div align="center">
+          <h3>{{s.date}}</h3>
+        </div>
+
+        <ion-card-content>
+
+          <ion-segment [(ngModel)]="shiftchoice" color="dark">
+            <ion-segment-button value="s1">Shift 1</ion-segment-button>
+            <ion-segment-button value="s2">Shift 2</ion-segment-button>
+          </ion-segment>
+
+          <br>
+          <div *ngIf="shiftchoice=='s1'" align="center">
+            <h1>{{s.shift1name}}</h1>
+          </div>
+
+          <div *ngIf="shiftchoice=='s2'" align="center">
+            <h1>{{s.shift2name}}</h1>
+          </div>
+
+
+        </ion-card-content>
+      </ion-card>
+
+      <div align="center">
+        <ion-button fill="outline" color="dark" (click)="presentModal()">ADD NEW SHIFT</ion-button>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div *ngIf="segchoice=='vspe'">
+
+      <ion-item>
+        <ion-label>Choose an Employee : </ion-label>
+      </ion-item>
+
+      <ion-select [(ngModel)]="selectedemp">
+        <div *ngFor="let u of users | async">
+          <ion-select-option value="{{u.id}}" *ngIf="u.role=='employee'">{{u.name}}</ion-select-option>
+        </div>
+      </ion-select>
+
+      <div align="center"><ion-button fill="outline" color="primary" (click)="changeshow()">Show employee Schedule</ion-button></div>
+
+
+      <div *ngIf="show==true && selectedemp!='' ">
+        <div *ngFor="let s of shifts | async">
+          <ion-card *ngIf="s.shift1id==selectedemp || s.shift2id==selectedemp" color="medium">
+            <div align="center"><h2>{{s.date}}</h2></div>
+            <div *ngIf="s.shift1id==selectedemp" align="center"><h4>Shift1</h4></div>
+            <div *ngIf="s.shift2id==selectedemp" align="center"><h4>Shift2</h4></div>
+          </ion-card>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div *ngIf="segchoice=='free'">
+
+      <div *ngFor="let s of shifts | async">
+        <ion-card *ngIf="s.shift1id=='None' || s.shift2id=='None'" color="medium">
+          <div align="center"><h2>{{s.date}}</h2></div>
+          <div *ngIf="s.shift1id=='None' " align="center"><h4>Shift1</h4></div>
+          <div *ngIf="s.shift2id=='None' " align="center"><h4>Shift2</h4></div>
+        </ion-card>
+      </div>
+
+    </div>
+
+
+
+
+    <div *ngIf="segchoice=='trade'">
+      trade
+    </div>
+
+
+
+  </div>
 
   <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>

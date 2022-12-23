@@ -55,6 +55,9 @@ export class Tab1Page {
 
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
+      if (!this.Datasrv.logged || this.Datasrv.loggedRole!="owner"){
+        this.navCtrl.navigateBack('/login');
+      }
       this.usersCollectionRef = this.afs.collection('users');
           this.users = this.usersCollectionRef.snapshotChanges().pipe(
             map(actions => {
