@@ -95,7 +95,6 @@ export class Tab1Page {
           }
 
 
-
           changeshow(){
             this.show=true;
           }

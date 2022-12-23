@@ -112,6 +112,13 @@ export class ColdStoreDataService {
         const id = a.payload.doc.id;
         return {id, ...data};
       })));
+
+    this.getallusers();
+  }
+
+
+  getallusers(){
+    this.users.subscribe( (data)=>{this.allUsers=data});
   }
 
 
@@ -168,9 +175,9 @@ export class ColdStoreDataService {
       totalQuantity: order.totalQuantity,
       date: order.date
     })
-}
+  }
 
-getOrder(id: string): Observable<Order | undefined> {
+  getOrder(id: string): Observable<Order | undefined> {
     return this.ordersCollection.doc<Order>(id).valueChanges().pipe(
       map(order => {
         if (order) {
@@ -179,18 +186,21 @@ getOrder(id: string): Observable<Order | undefined> {
         return order;
       })
     );
-}
+
+  }
 
 
- getOrders(): Observable<Order[]> {
+
+
+  getOrders(): Observable<Order[]> {
     return this.orders;
 
- }
-   deleteOrder(order: Order) {
+  }
+  deleteOrder(order: Order) {
     // delete order from firebase
     return this.ordersCollection.doc(order.id).delete();
 
-   }
+  }
   createUser(user: User) {
     // add user to firebase
     return this.usersCollection.add(user);
@@ -214,7 +224,7 @@ getOrder(id: string): Observable<Order | undefined> {
     return this.usersCollection.doc<User>(id).valueChanges().pipe(
       map(user => {
         if (user) {
-        user.id = id;
+          user.id = id;
         }
         return user;
       })
@@ -252,12 +262,12 @@ getOrder(id: string): Observable<Order | undefined> {
   getProvider(id: string): Observable<Provider | undefined> {
     return this.providersCollection.doc<Provider>(id).valueChanges().pipe(
       map(provider => {
-        if (provider) {
-        provider.id = id;
+          if (provider) {
+            provider.id = id;
+          }
+          return provider;
         }
-        return provider;
-      }
-    ));
+      ));
   }
 
 
@@ -274,12 +284,6 @@ getOrder(id: string): Observable<Order | undefined> {
       }
     }
   }
-
-
-
-
-
-
 
 
 }

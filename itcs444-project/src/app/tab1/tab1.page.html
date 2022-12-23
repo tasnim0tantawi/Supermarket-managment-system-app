@@ -7,13 +7,9 @@
 <ion-content [fullscreen]="true">
 
 
-
-
-
   <div *ngIf="this.Datasrv.logged==false">
     <div align="center"><ion-button routerLink="/login" routerDirection="forward">Log in</ion-button></div>
   </div>
-
 
 
   <div *ngIf="this.Datasrv.logged==true && this.Datasrv.loggedRole=='owner'">
