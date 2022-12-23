@@ -24,6 +24,15 @@ export interface Order {
   totalQuantity: number;
   date: Date;
 }
+export interface shifts {
+  id?:string;
+  date:string;
+  shift1id: string;
+  shift1name: string;
+  shift2id: string;
+  shift2name: string;
+}
+
 export interface User {
   id?: string;
   name: string;

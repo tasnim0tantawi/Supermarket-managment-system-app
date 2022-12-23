@@ -5,7 +5,7 @@ import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { DocumentReference } from '@angular/fire/compat/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { DataListService } from '../data-list.service';
+import { ColdStoreDataService} from "../cold-store-data.service";
 
 
 export interface users {
@@ -45,22 +45,16 @@ export class AddshiftPage implements OnInit {
 
   public item : shifts = {} as shifts;
 
-
-  
-
-
   s1:string="";
 
   s2:string="";
 
 
 
-  
 
+  constructor(public ModalCtrl:ModalController, public navCtrl:NavController,public afs: AngularFirestore , public Datasrv: ColdStoreDataService) {
 
-
-  constructor(public ModalCtrl:ModalController, public navCtrl:NavController,public afs: AngularFirestore , public Datasrv:DataListService) { 
-    this.usersCollectionRef = this.afs.collection('users'); 
+    this.usersCollectionRef = this.afs.collection('users');
           this.users = this.usersCollectionRef.snapshotChanges().pipe(
             map(actions => {
               return actions.map(a => {
@@ -71,7 +65,7 @@ export class AddshiftPage implements OnInit {
             })
           );
 
-          this.shiftsCollectionRef = this.afs.collection('shifts'); 
+          this.shiftsCollectionRef = this.afs.collection('shifts');
           this.shifts = this.shiftsCollectionRef.snapshotChanges().pipe(
             map(actions => {
               return actions.map(a => {
@@ -83,12 +77,12 @@ export class AddshiftPage implements OnInit {
           );
 
 
-          
+
 
   }
 
 
-  
+
 
   ngOnInit() {
   }
@@ -106,12 +100,12 @@ export class AddshiftPage implements OnInit {
     insert(){
 
       this.shift.shift1id=this.s1;
-      this.shift.shift2id=this.s2; 
+      this.shift.shift2id=this.s2;
 
       if(this.shift.shift1id!=''){
-        for(let i=0;i<this.Datasrv.allusers.length;i++){
-          if(this.Datasrv.allusers[i].id==this.shift.shift1id){
-            this.shift.shift1name=this.Datasrv.allusers[i].name;
+        for(let i=0;i<this.Datasrv.allUsers.length;i++){
+          if(this.Datasrv.allUsers[i].id==this.shift.shift1id){
+            this.shift.shift1name=this.Datasrv.allUsers[i].name;
           }
         }
       }
@@ -124,9 +118,9 @@ export class AddshiftPage implements OnInit {
 
 
       if(this.shift.shift2id!=''){
-        for(let i=0;i<this.Datasrv.allusers.length;i++){
-          if(this.Datasrv.allusers[i].id==this.shift.shift2id){
-            this.shift.shift2name=this.Datasrv.allusers[i].name;
+        for(let i=0;i<this.Datasrv.allUsers.length;i++){
+          if(this.Datasrv.allUsers[i].id==this.shift.shift2id){
+            this.shift.shift2name=this.Datasrv.allUsers[i].name;
           }
 
         }
@@ -148,17 +142,17 @@ export class AddshiftPage implements OnInit {
     addshift(shift:shifts): Promise<DocumentReference>{
        return this.shiftsCollectionRef.add(shift);
     }
-   
-    
 
-        
-        
-       
-       
-      
-      
-      
-   
+
+
+
+
+
+
+
+
+
+
 
 
 
