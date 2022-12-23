@@ -42,17 +42,9 @@ export class Tab1Page {
   shiftsCollectionRef: AngularFirestoreCollection<shifts>;
 
 
-  segchoice:string="shifts";
-  shiftchoice:string="s1";
-
-  selectedemp:string="";
-
-  show:boolean=false;
 
 
   allusers:users[]=[];
-
-
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
       this.usersCollectionRef = this.afs.collection('users');
@@ -86,18 +78,6 @@ export class Tab1Page {
         }
 
 
-        async presentModal() {
-          const modal = await this.ModalCtrl.create({
-          component: AddshiftPage ,
-          backdropDismiss: false
-          });
-          return await modal.present();
-          }
-
-
-          changeshow(){
-            this.show=true;
-          }
 
 
 
