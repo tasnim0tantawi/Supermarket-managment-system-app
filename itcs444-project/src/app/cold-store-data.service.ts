@@ -13,8 +13,9 @@ export interface Product {
   description: string;
   category: string;
   image: string;
-  provider: string;
+  supplier: string;
   quantity: number;
+  soldQuantity: number;
 }
 export interface Order {
   id?: string;
@@ -41,12 +42,13 @@ export interface User {
   password: string;
   email: string;
 }
-export interface Provider {
+export interface Supplier {
   id?: string;
   name: string;
   product_ids: string[];
   phone: string;
   logo: string;
+  soldQuantity: number;
 }
 
 @Injectable({
@@ -63,8 +65,8 @@ export class ColdStoreDataService {
   users: Observable<User[]>;
   usersCollection: AngularFirestoreCollection<User>;
 
-  providers: Observable<Provider[]>;
-  providersCollection: AngularFirestoreCollection<Provider>;
+  suppliers: Observable<Supplier[]>;
+  providersCollection: AngularFirestoreCollection<Supplier>;
 
   public logged: boolean = false;
 
@@ -75,6 +77,11 @@ export class ColdStoreDataService {
   public loggedRole:string="";
 
   allUsers:User[]=[];
+  allOrders:Order[]=[];
+  allSuppliers: Supplier[] = [];
+  allEmployees: User[] = [];
+
+
 
 
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {
@@ -105,10 +112,10 @@ export class ColdStoreDataService {
         }
       )));
 
-    this.providersCollection = afs.collection<Provider>('providers');
-    this.providers = this.afs.collection<Provider>('providers').snapshotChanges().pipe(
+    this.providersCollection = afs.collection<Supplier>('providers');
+    this.suppliers = this.afs.collection<Supplier>('providers').snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Provider;
+        const data = a.payload.doc.data() as Supplier;
         const id = a.payload.doc.id;
         return {id, ...data};
       })));
@@ -137,8 +144,9 @@ export class ColdStoreDataService {
       description: product.description,
       category: product.category,
       image: product.image,
-      provider: product.provider,
-      quantity: product.quantity
+      supplier: product.supplier,
+      quantity: product.quantity,
+      soldQuantity: product.soldQuantity
     })
 
   }
@@ -161,6 +169,19 @@ export class ColdStoreDataService {
   getProducts(): Observable<Product[]> {
     return this.products;
   }
+  sellProduct(product: Product, quantity: number, supplier: Supplier) {
+    // update product quantity in firebase
+    return this.productsCollection.doc(product.id).update({
+      quantity: product.quantity - quantity,
+      soldQuantity: product.soldQuantity + quantity
+         }).then(() => {
+      // update supplier soldQuantity in firebase
+      return this.providersCollection.doc(supplier.id).update({
+        soldQuantity: supplier.soldQuantity + quantity
+      });
+    })
+  }
+
   createOrder(order: Order) {
     // add order to firebase
     return this.ordersCollection.add(order);
@@ -233,32 +254,40 @@ export class ColdStoreDataService {
   getUsers(): Observable<User[]> {
     return this.users;
   }
-  createProvider(provider: Provider) {
-    // add provider to firebase
-    return this.providersCollection.add(provider);
+  getEmployees(): Observable<User[]> {
+    return this.users.pipe(
+      map(users => users.filter(user => user.role === 'employee'))
+    );
   }
-  updateProvider(provider: Provider){
+
+
+  createSupplier(supplier: Supplier) {
+    // add provider to firebase
+    return this.providersCollection.add(supplier);
+  }
+  updateSupplier(supplier: Supplier){
     // update provider in firebase
-    return this.providersCollection.doc(provider.id).update({
-      id: provider.id,
-      name: provider.name,
-      product_ids: provider.product_ids,
-      phone: provider.phone,
-      logo: provider.logo
+    return this.providersCollection.doc(supplier.id).update({
+      id: supplier.id,
+      name: supplier.name,
+      product_ids: supplier.product_ids,
+      phone: supplier.phone,
+      logo: supplier.logo
     })
 
+
   }
-  deleteProvider(provider: Provider) {
+  deleteSupplier(provider: Supplier) {
     // delete provider from firebase
     return this.providersCollection.doc(provider.id).delete();
   }
 
-  getProviders(): Observable<Provider[]> {
-    return this.providers;
+  getSuppliers(): Observable<Supplier[]> {
+    return this.suppliers;
   }
 
-  getProvider(id: string): Observable<Provider | undefined> {
-    return this.providersCollection.doc<Provider>(id).valueChanges().pipe(
+  getProvider(id: string): Observable<Supplier | undefined> {
+    return this.providersCollection.doc<Supplier>(id).valueChanges().pipe(
       map(provider => {
           if (provider) {
             provider.id = id;

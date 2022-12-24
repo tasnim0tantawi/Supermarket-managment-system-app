@@ -4,7 +4,7 @@ import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { DocumentReference } from '@angular/fire/compat/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ColdStoreDataService} from "../../cold-store-data.service";
+import {ColdStoreDataService, Order} from "../../cold-store-data.service";
 import { AddshiftPage } from '../../addshift/addshift.page';
 import { ModalController, NavController } from '@ionic/angular';
 import firebase from "firebase/compat";
@@ -32,15 +32,21 @@ export interface shifts {
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  orders = this.Datasrv.getOrders();
-  users: User[] = [];
+  orders: Observable<Order[]> | undefined;
+  order: Order = {} as Order;
 
-
-
+  suppliers = this.Datasrv.getSuppliers();
+  supplier : User = {} as User;
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
       if (!this.Datasrv.logged || this.Datasrv.loggedRole!="owner"){
         this.navCtrl.navigateBack('/login');
 
+
+
+      }}
+
+      ngOnInit() {
+        this.orders = this.Datasrv.getOrders();
 
       }
 
@@ -49,7 +55,6 @@ export class Tab1Page {
 
 
 
-        }
 
 
 

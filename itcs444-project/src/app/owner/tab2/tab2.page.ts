@@ -21,7 +21,6 @@ export class Tab2Page {
 
   users: Observable<User[]>;
   usersCollectionRef: AngularFirestoreCollection<User>;
-
   public user : User = {} as User;
 
 
