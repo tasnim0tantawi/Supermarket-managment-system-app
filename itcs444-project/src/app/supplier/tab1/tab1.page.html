@@ -9,6 +9,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Search"></ion-searchbar>
+  <ion-card *ngFor="let product of this.coldStoreDataService.products | async">
+    <div *ngIf="this.coldStoreDataService.loggedEmail == product.supplierEmail">
+    <ion-card-header>
+      <ion-card-title routerLink="/product-details/{{product.name}}">{{product.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+      <img src="{{product.image}}" height="250"/>
+      </ion-item>
+      <ion-item>
+        <ion-label>Description: {{product.description}} </ion-label>
+      </ion-item>
+
+    </ion-card-content>
+    </div>
+  </ion-card>
 
 
 

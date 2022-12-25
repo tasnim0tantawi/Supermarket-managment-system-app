@@ -1,9 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>product-details</ion-title>
+    <ion-title>{{product.name | titlecase}} details</ion-title>
+    <ion-button routerLink="/supplier/tabs/tab1" slot="start" fill="clear" color="primary">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+      <ion-title>{{product.name}}</ion-title>
+
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="product.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Price</ion-label>
+        <ion-input type="number" [(ngModel)]="product.price"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Quantity</ion-label>
+        <ion-input type="number" [(ngModel)]="product.quantity"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label>Description</ion-label>
+        <ion-input type="text" [(ngModel)]="product.description"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-input type="text" [(ngModel)]="product.category"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Image</ion-label>
+        <ion-input type="text" [(ngModel)]="product.image"></ion-input>
+      </ion-item>
+
+  </ion-list>
+  <ion-button expand="block" (click)="updateProduct()">Update Product</ion-button>
+  <ion-button expand="block"  color="danger" (click)="deleteProduct()">Delete Product</ion-button>
+
+
 
 </ion-content>

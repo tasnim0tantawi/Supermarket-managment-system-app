@@ -32,53 +32,19 @@ export interface shifts {
 export class Tab1Page {
 
 
-  users: Observable<users[]>;
-  usersCollectionRef: AngularFirestoreCollection<users>;
 
-  public user : users = {} as users;
-
-
-  shifts: Observable<shifts[]>;
-  shiftsCollectionRef: AngularFirestoreCollection<shifts>;
+  public user: users = {} as users;
 
 
 
-  allusers:users[]=[];
+  constructor(public afs: AngularFirestore, public coldStoreDataService: ColdStoreDataService, public ModalCtrl: ModalController, public navCtrl: NavController) {
+    if (!this.coldStoreDataService.logged || this.coldStoreDataService.loggedRole != "supplier") {
+      this.navCtrl.navigateBack('/login');
+    }
 
-    constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
-      if (!this.Datasrv.logged || this.Datasrv.loggedRole!="supplier"){
-        this.navCtrl.navigateBack('/login');
-      }
-
-      this.usersCollectionRef = this.afs.collection('users');
-          this.users = this.usersCollectionRef.snapshotChanges().pipe(
-            map(actions => {
-              return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, ...data };
-              });
-            })
-          );
-
-          this.shiftsCollectionRef = this.afs.collection('shifts');
-          this.shifts = this.shiftsCollectionRef.snapshotChanges().pipe(
-            map(actions => {
-              return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, ...data };
-              });
-            })
-          );
+  }
 
 
-
-
-
-
-
-        }
 
 
 

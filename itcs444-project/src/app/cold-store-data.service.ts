@@ -17,6 +17,7 @@ export interface Product {
   quantity: number;
   soldQuantity: number;
   discount: number;
+  supplierEmail: string;
 }
 export interface Order {
   id?: string;
@@ -80,6 +81,7 @@ export class ColdStoreDataService {
   public loggedId: string="";
 
   public loggedRole:string="";
+  public loggedName: string = "";
 
   allUsers:User[]=[];
   allOrders:Order[]=[] as Order[];
@@ -128,8 +130,10 @@ export class ColdStoreDataService {
     this.getallusers();
     this.getAllOrders();
     this.getAllSuppliers();
+    this.getAllProducts();
 
     this.loggedUser = this.allUsers.find(user => user.email === this.loggedEmail) as User;
+    console.log(this.loggedUser);
   }
 
 
@@ -141,6 +145,9 @@ export class ColdStoreDataService {
   }
   getAllSuppliers() {
     this.suppliers.subscribe( (data)=>{this.allSuppliers=data});
+  }
+  getAllProducts() {
+    this.products.subscribe( (data)=>{this.allProducts=data});
   }
 
 
@@ -184,18 +191,6 @@ export class ColdStoreDataService {
 
   getProducts(): Observable<Product[]> {
     return this.products;
-  }
-  sellProduct(product: Product, quantity: number, supplier: Supplier) {
-    // update product quantity in firebase
-    return this.productsCollection.doc(product.id).update({
-      quantity: product.quantity - quantity,
-      soldQuantity: product.soldQuantity + quantity
-         }).then(() => {
-      // update supplier soldQuantity in firebase
-      return this.providersCollection.doc(supplier.id).update({
-        soldQuantity: supplier.soldQuantity + quantity
-      });
-    })
   }
 
   createOrder(order: Order) {
