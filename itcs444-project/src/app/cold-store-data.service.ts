@@ -38,9 +38,7 @@ export interface shifts {
 export interface User {
   id?: string;
   name: string;
-  username: string;
   role: string;
-  password: string;
   email: string;
   image: string;
 }
@@ -73,7 +71,7 @@ export class ColdStoreDataService {
   public logged: boolean = false;
 
   public loggedEmail: string="";
-  public loggedUser: User | undefined;
+  public loggedUser: User= {} as User;
 
   public loggedId: string="";
 
@@ -126,7 +124,7 @@ export class ColdStoreDataService {
     this.getAllOrders();
     this.getAllSuppliers();
 
-    this.loggedUser = this.allUsers.find(user => user.email === this.loggedEmail);
+    this.loggedUser = this.allUsers.find(user => user.email === this.loggedEmail) as User;
   }
 
 
@@ -242,9 +240,9 @@ export class ColdStoreDataService {
     return this.usersCollection.doc(user.id).update({
       id: user.id,
       name: user.name,
-      username: user.username,
       role: user.role,
-      password: user.password
+      email: user.email,
+      image: user.image,
     })
   }
   deleteUser(user: User) {

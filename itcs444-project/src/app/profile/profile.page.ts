@@ -10,26 +10,25 @@ import {AngularFirestoreCollection} from "@angular/fire/compat/firestore";
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user: User | undefined = {
-    id: '',
-    email: '',
-    name: '',
-    password: '',
-    role: '',
-    image: '',
-    username: '',
-
-  };
-
+  user: User = {} as User;
   constructor(public coldStoreDataService: ColdStoreDataService) {
+
+
     if(this.coldStoreDataService.logged){
-      this.user = this.coldStoreDataService.allUsers.find(user => user.email === this.coldStoreDataService.loggedEmail);
+      this.user = this.coldStoreDataService.allUsers.find(user => user.email === this.coldStoreDataService.loggedEmail) as User;
       console.log(this.user);
+    }
+    else{
+      this.user = {
+        id: ' ',
+        email: ' ',
+        name: ' ',
+        role: ' ',
+        image: ' ',
+      };
     }
 
   }
-
-
 
 
 
