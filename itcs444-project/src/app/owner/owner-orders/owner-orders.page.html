@@ -9,6 +9,8 @@
   <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
     <ion-card-header>
       <ion-label> {{order.title}}</ion-label>
+      <ion-button color="danger">Cancel</ion-button>
+        <ion-icon name="heart"></ion-icon>
     </ion-card-header>
     <ion-card-content>
       <ion-label> Supplier Name: {{order.supplier}}</ion-label>

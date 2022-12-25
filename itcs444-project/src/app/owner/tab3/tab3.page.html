@@ -13,21 +13,24 @@
     </ion-toolbar>
   </ion-header>
   <ion-card *ngFor="let product of products">
+
     <ion-card-header>
-      <ion-card-title>{{product.name}}</ion-card-title>
+      <ion-card-title>{{product.name | titlecase}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
         <ion-label>
-        {{product.description}}
+        {{product.description| titlecase}}
         </ion-label>
       </ion-item>
       <ion-item>
         <ion-label>
-          {{product.price}}
+          Price: {{product.price}}
         </ion-label>
       </ion-item>
       <ion-button routerLink="/place-order/{{product.name}}"> Order </ion-button>
+      <ion-button routerLink="/modify-product/{{product.name}}"> Modify </ion-button>
+
     </ion-card-content>
   </ion-card>
 

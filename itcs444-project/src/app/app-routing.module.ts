@@ -41,8 +41,12 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'place-order',
+    path: 'place-order/:name',
     loadChildren: () => import('./place-order/place-order.module').then( m => m.PlaceOrderPageModule)
+  },
+  {
+    path: 'modify-product/:name',
+    loadChildren: () => import('./modify-product/modify-product.module').then( m => m.ModifyProductPageModule)
   }
 ];
 @NgModule({

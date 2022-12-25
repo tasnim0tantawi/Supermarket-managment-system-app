@@ -36,13 +36,23 @@ export class ProfilePage implements OnInit {
 
   }
   updateUser(){
-
     this.coldStoreDataService.updateUser(this.user).then(() => {
       this.showUpdated();
     }
     );
-    ;
   }
+  deleteUser() {
+    this.coldStoreDataService.deleteUser(this.user).then(() => {
+      this.showDeleted().then(() => {
+          // log out
+          this.coldStoreDataService.logged = false;
+          this.router.navigate(['/login']);
+
+        }
+      );
+    });
+  }
+
 
 
   async showUpdated(){
@@ -53,6 +63,15 @@ export class ProfilePage implements OnInit {
     });
     await alert.present();
     }
+  async showDeleted(){
+    const alert = await this.alertController.create({
+      header: 'Deleted!',
+      message: 'Your profile has been deleted.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
 
 
   ngOnInit() {

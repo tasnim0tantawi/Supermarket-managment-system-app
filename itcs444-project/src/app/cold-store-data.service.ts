@@ -18,6 +18,8 @@ export interface Product {
   soldQuantity: number;
   discount: number;
   supplierEmail: string;
+  sellPrice: number;
+  hold: number;
 }
 export interface Order {
   id?: string;
@@ -29,6 +31,7 @@ export interface Order {
   date: string;
   status: string;
   supplier: string;
+  favorite: boolean;
 
 }
 export interface shifts {
@@ -81,14 +84,11 @@ export class ColdStoreDataService {
   public loggedId: string="";
 
   public loggedRole:string="";
-  public loggedName: string = "";
 
   allUsers:User[]=[];
   allOrders:Order[]=[] as Order[];
   allSuppliers: Supplier[] = [] as Supplier[];
   allProducts: Product[] = [] as Product[];
-
-
 
 
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {
@@ -167,9 +167,12 @@ export class ColdStoreDataService {
       description: product.description,
       category: product.category,
       image: product.image,
+      hold: product.hold,
       supplier: product.supplier,
       quantity: product.quantity,
-      soldQuantity: product.soldQuantity
+      soldQuantity: product.soldQuantity,
+      discount: product.discount,
+      sellPrice: product.sellPrice,
     })
 
   }
@@ -197,18 +200,6 @@ export class ColdStoreDataService {
     // add order to firebase
     return this.ordersCollection.add(order);
   }
-  updateOrder(order: Order){
-    // update order in firebase
-    return this.ordersCollection.doc(order.id).update({
-      id: order.id,
-      title: order.title,
-      totalPrice: order.totalPrice,
-      totalQuantity: order.totalQuantity,
-      date: order.date,
-      status: order.status,
-      supplier: order.supplier
-    })
-  }
 
   getOrder(id: string): Observable<Order | undefined> {
     return this.ordersCollection.doc<Order>(id).valueChanges().pipe(
@@ -219,7 +210,6 @@ export class ColdStoreDataService {
         return order;
       })
     );
-
   }
   getOrders(): Observable<Order[]> {
     return this.orders;
@@ -232,12 +222,14 @@ export class ColdStoreDataService {
     // update order status in firebase, update supplier soldQuantity, update product quantity
      this.ordersCollection.doc(order.id).update({
       status: 'accepted'
-    }).then(() => {
-       this.productsCollection.doc(order.name).update({
-         quantity: product.quantity + order.totalQuantity
-       })
-     })
+    })
   }
+  updateProductQuantity(product: Product, quantity: number){
+    this.productsCollection.doc(product.id).update({
+      quantity: product.quantity + quantity
+    })
+  }
+
   rejectOrder(order: Order){
     // update order status in firebase
        return this.ordersCollection.doc(order.id).update({
@@ -326,6 +318,9 @@ export class ColdStoreDataService {
           return provider;
         }
       ));
+  }
+  toggleFavorite(product: Product) {
+
   }
 
   checkRole(){

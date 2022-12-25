@@ -10,7 +10,7 @@ export class Tab3Page {
 
   constructor(public coldStoreDataService: ColdStoreDataService) {
   }
-  accceptOrder(order: Order) {
+  acceptOrder(order: Order) {
     let product = this.coldStoreDataService.getProductByName(order.name);
     this.coldStoreDataService.acceptOrder(order, product);
   }

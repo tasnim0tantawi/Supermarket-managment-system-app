@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Orders
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,6 +13,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
+    <div *ngIf="order.status=='pending'">
     <ion-card-header>
       <ion-label> {{order.title}}</ion-label>
     </ion-card-header>
@@ -31,9 +32,9 @@
     <ion-card-content>
       <ion-label> Status: {{order.status}}</ion-label>
     </ion-card-content>
-    <ion-button (click)="accceptOrder(order)">Accept</ion-button>
-    <ion-button color="danger "(click)="rejectOrder(order)">Reject</ion-button>
-
+    <ion-button (click)="acceptOrder(order)">Accept</ion-button>
+    <ion-button color="danger"(click)="rejectOrder(order)">Reject</ion-button>
+    </div>
 
   </ion-card>
 
