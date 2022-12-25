@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modify Product</ion-title>
+    <ion-icon name="arrow-back" routerLink="/owner/tabs/tab3"></ion-icon>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Discount:</ion-label>
+      <ion-input [(ngModel)]="product.discount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Selling Price:</ion-label>
+      <ion-input [(ngModel)]="product.sellPrice"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Hold Quantity:</ion-label>
+      <ion-input [(ngModel)]="product.hold"></ion-input>
+    </ion-item>
+
+  <ion-button (click)="updateProduct()">Update</ion-button>
+  </ion-list>
+
+</ion-content>
