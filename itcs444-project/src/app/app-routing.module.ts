@@ -51,6 +51,10 @@ const routes: Routes = [
   {
     path: 'pending-rejected-orders',
     loadChildren: () => import('./pending-rejected-orders/pending-rejected-orders.module').then( m => m.PendingRejectedOrdersPageModule)
+  },
+  {
+    path: 'add-product',
+    loadChildren: () => import('./supplier/add-product/add-product.module').then( m => m.AddProductPageModule)
   }
 ];
 @NgModule({

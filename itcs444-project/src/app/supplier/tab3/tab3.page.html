@@ -20,8 +20,11 @@
     <ion-card-content>
       <ion-label> Supplier Name: {{order.supplier}}</ion-label>
     </ion-card-content>
+      <ion-card-content>
+        <ion-label> Product Name: {{order.name}}</ion-label>
+      </ion-card-content>
     <ion-card-content>
-      <ion-label> Date: {{order.date}}</ion-label>
+      <ion-label> Date: {{order.date[order.date.length-1]}}</ion-label>
     </ion-card-content>
     <ion-card-content>
       <ion-label> Quantity: {{order.totalQuantity}}</ion-label>
@@ -39,6 +42,4 @@
   </ion-card>
 
 
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
 </ion-content>

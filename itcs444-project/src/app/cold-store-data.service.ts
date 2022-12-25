@@ -19,7 +19,7 @@ export interface Product {
   discount: number;
   supplierEmail: string;
   sellPrice: number;
-  hold: number;
+  threshold: number;
 }
 
 export interface Order {
@@ -168,7 +168,7 @@ export class ColdStoreDataService {
       description: product.description,
       category: product.category,
       image: product.image,
-      hold: product.hold,
+      threshold: product.threshold,
       supplier: product.supplier,
       quantity: product.quantity,
       soldQuantity: product.soldQuantity,
@@ -216,22 +216,20 @@ export class ColdStoreDataService {
     return this.orders;
   }
   getProductByName(name: string){
-    return this.allProducts.find(product => product.name === name) as Product;
+    return this.allProducts.find(product => product.name == name) as Product;
   }
 
   acceptOrder(order: Order, product: Product){
     // update order status in firebase, update supplier soldQuantity, update product quantity
      this.ordersCollection.doc(order.id).update({
-      status: 'accepted'
-    })
-  }
-  updateProductQuantity(product: Product, quantity: number){
-    this.productsCollection.doc(product.id).update({
-      quantity: product.quantity + quantity
-    })
+      status: 'accepted'});
+
+      this.productsCollection.doc(product.id).update({
+      quantity: product.quantity + order.totalQuantity
+    });
   }
 
-  rejectOrder(order: Order){
+     rejectOrder(order: Order){
     // update order status in firebase
        return this.ordersCollection.doc(order.id).update({
       status: 'rejected'
@@ -298,7 +296,6 @@ export class ColdStoreDataService {
       phone: supplier.phone,
       logo: supplier.logo
     })
-
 
   }
   deleteSupplier(provider: Supplier) {
