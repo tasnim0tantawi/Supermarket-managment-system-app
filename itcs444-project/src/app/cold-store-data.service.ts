@@ -21,13 +21,14 @@ export interface Product {
   sellPrice: number;
   hold: number;
 }
+
 export interface Order {
   id?: string;
   title: string;
   name: string;
   totalPrice: number;
   totalQuantity: number;
-  date: string;
+  date: string[];
   status: string;
   supplier: string;
   favorite: boolean;
@@ -323,11 +324,12 @@ export class ColdStoreDataService {
     this.ordersCollection.doc(order.id).update({
       favorite: !order.favorite
     });
+
   }
   reOrder(order: Order) {
     this.ordersCollection.doc(order.id).update({
       status: 'pending',
-      date: new Date().toLocaleDateString(),
+      date: [...order.date, new Date().toLocaleDateString()],
       numOrdered: order.numOrdered + 1
     });
   }

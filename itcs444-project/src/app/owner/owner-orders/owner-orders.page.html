@@ -24,7 +24,11 @@
       <ion-label> Supplier Name: {{order.supplier}}</ion-label>
     </ion-card-content>
     <ion-card-content>
-      <ion-label> Date: {{order.date}}</ion-label>
+      <ion-list>
+        <ion-item *ngFor="let date of order.date; let i=index">
+          <ion-label> Order {{i+1}}: {{date}} </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
     <ion-card-content>
       <ion-label> Quantity: {{order.totalQuantity}}</ion-label>
@@ -36,7 +40,8 @@
       <ion-label> Status: {{order.status}}</ion-label>
     </ion-card-content>
       <ion-card-content *ngIf="order.favorite">
-        <ion-button (click)="reOrder(order.id)"> Re-Order</ion-button>
+        <ion-label color="warning"> Glad you loved it <3 </ion-label>
+        <ion-button fill="clear" (click)="reOrder(order.id)"> Re-Order?</ion-button>
       </ion-card-content>
     </div>
 
