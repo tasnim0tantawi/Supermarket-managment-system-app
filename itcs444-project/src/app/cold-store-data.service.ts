@@ -16,6 +16,7 @@ export interface Product {
   supplier: string;
   quantity: number;
   soldQuantity: number;
+  discount: number;
 }
 export interface Order {
   id?: string;
@@ -41,6 +42,7 @@ export interface User {
   role: string;
   password: string;
   email: string;
+  image: string;
 }
 export interface Supplier {
   id?: string;
@@ -71,6 +73,7 @@ export class ColdStoreDataService {
   public logged: boolean = false;
 
   public loggedEmail: string="";
+  public loggedUser: User | undefined;
 
   public loggedId: string="";
 
@@ -79,7 +82,6 @@ export class ColdStoreDataService {
   allUsers:User[]=[];
   allOrders:Order[]=[];
   allSuppliers: Supplier[] = [];
-  allEmployees: User[] = [];
 
 
 
@@ -99,7 +101,7 @@ export class ColdStoreDataService {
       map(actions => actions.map(a => {
           const data = a.payload.doc.data() as Order;
           const id = a.payload.doc.id;
-          return { id, ...data };
+          return {id, ...data};
         }
       )));
 
@@ -108,7 +110,7 @@ export class ColdStoreDataService {
       map(actions => actions.map(a => {
           const data = a.payload.doc.data() as User;
           const id = a.payload.doc.id;
-          return { id, ...data };
+          return {id, ...data};
         }
       )));
 
@@ -121,12 +123,23 @@ export class ColdStoreDataService {
       })));
 
     this.getallusers();
+    this.getAllOrders();
+    this.getAllSuppliers();
+
+    this.loggedUser = this.allUsers.find(user => user.email === this.loggedEmail);
   }
 
 
   getallusers(){
     this.users.subscribe( (data)=>{this.allUsers=data});
   }
+  getAllOrders() {
+    this.orders.subscribe( (data)=>{this.allOrders=data});
+  }
+  getAllSuppliers() {
+    this.suppliers.subscribe( (data)=>{this.allSuppliers=data});
+  }
+
 
 
 // add firebase CRUD methods here

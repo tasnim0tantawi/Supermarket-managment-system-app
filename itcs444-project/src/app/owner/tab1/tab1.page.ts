@@ -42,7 +42,6 @@ export class Tab1Page {
         this.navCtrl.navigateBack('/login');
 
 
-
       }}
 
       ngOnInit() {
