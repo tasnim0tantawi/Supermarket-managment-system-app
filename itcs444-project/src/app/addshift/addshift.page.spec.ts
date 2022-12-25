@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+// bye
 
 import { AddshiftPage } from './addshift.page';
 
@@ -9,8 +10,8 @@ describe('AddshiftPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddshiftPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AddshiftPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddshiftPage);
