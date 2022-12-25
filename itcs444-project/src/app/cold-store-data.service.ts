@@ -20,11 +20,15 @@ export interface Product {
 }
 export interface Order {
   id?: string;
-  customerName: string;
+  title: string;
+  name: string;
   product_ids: string[];
   totalPrice: number;
   totalQuantity: number;
-  date: Date;
+  date: string;
+  status: string;
+  supplier: string;
+
 }
 export interface shifts {
   id?:string;
@@ -78,8 +82,9 @@ export class ColdStoreDataService {
   public loggedRole:string="";
 
   allUsers:User[]=[];
-  allOrders:Order[]=[];
-  allSuppliers: Supplier[] = [];
+  allOrders:Order[]=[] as Order[];
+  allSuppliers: Supplier[] = [] as Supplier[];
+  allProducts: Product[] = [] as Product[];
 
 
 
@@ -201,11 +206,12 @@ export class ColdStoreDataService {
     // update order in firebase
     return this.ordersCollection.doc(order.id).update({
       id: order.id,
-      customerName: order.customerName,
-      product_ids: order.product_ids,
+      title: order.title,
       totalPrice: order.totalPrice,
       totalQuantity: order.totalQuantity,
-      date: order.date
+      date: order.date,
+      status: order.status,
+      supplier: order.supplier
     })
   }
 
@@ -220,12 +226,31 @@ export class ColdStoreDataService {
     );
 
   }
-
-
   getOrders(): Observable<Order[]> {
     return this.orders;
-
   }
+  getProductByName(name: string){
+    return this.allProducts.find(product => product.name === name) as Product;
+  }
+
+  acceptOrder(order: Order, product: Product){
+    // update order status in firebase, update supplier soldQuantity, update product quantity
+     this.ordersCollection.doc(order.id).update({
+      status: 'accepted'
+    }).then(() => {
+       this.productsCollection.doc(order.name).update({
+         quantity: product.quantity + order.totalQuantity
+       })
+     })
+  }
+  rejectOrder(order: Order){
+    // update order status in firebase
+       return this.ordersCollection.doc(order.id).update({
+      status: 'rejected'
+    })
+       }
+
+
   deleteOrder(order: Order) {
     // delete order from firebase
     return this.ordersCollection.doc(order.id).delete();

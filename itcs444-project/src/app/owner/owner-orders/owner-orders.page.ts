@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ColdStoreDataService, Order } from '../../cold-store-data.service';
+import { ColdStoreDataService, Order, User } from '../../cold-store-data.service';
 
 @Component({
   selector: 'app-owner-orders',
@@ -7,11 +7,9 @@ import { ColdStoreDataService, Order } from '../../cold-store-data.service';
   styleUrls: ['./owner-orders.page.scss'],
 })
 export class OwnerOrdersPage implements OnInit {
-  orders: Order[];
 
   constructor(public coldStoreDataService: ColdStoreDataService) {
-    this.orders = this.coldStoreDataService.allOrders;
-    console.log(this.orders);
+
 
   }
 

@@ -6,4 +6,26 @@
 
 <ion-content>
 
+  <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
+    <ion-card-header>
+      <ion-label> {{order.title}}</ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label> Supplier Name: {{order.supplier}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Date: {{order.date}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Quantity: {{order.totalQuantity}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Price: {{order.totalPrice}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Status: {{order.status}}</ion-label>
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>

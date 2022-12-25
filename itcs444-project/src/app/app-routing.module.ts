@@ -27,17 +27,13 @@ const routes: Routes = [
     path: 'addshift',
     loadChildren: () => import('./addshift/addshift.module').then( m => m.AddshiftPageModule)
   },
-  {
-    path: 'add-product',
-    loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
-  },
 
   {
     path: 'product-details',
     loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   },
   {
-    path: 'owner-orders',
+    path: 'owner/owner-orders',
     loadChildren: () => import('./owner/owner-orders/owner-orders.module').then(m => m.OwnerOrdersPageModule)
   },
   {
@@ -51,4 +47,6 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+
+}

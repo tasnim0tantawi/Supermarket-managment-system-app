@@ -9,9 +9,35 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">My Orders</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
+    <ion-card-header>
+      <ion-label> {{order.title}}</ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label> Supplier Name: {{order.supplier}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Date: {{order.date}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Quantity: {{order.totalQuantity}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Price: {{order.totalPrice}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label> Status: {{order.status}}</ion-label>
+    </ion-card-content>
+    <ion-button (click)="accceptOrder(order)">Accept</ion-button>
+    <ion-button color="danger "(click)="rejectOrder(order)">Reject</ion-button>
+
+
+  </ion-card>
+
+
 
   <app-explore-container name="Tab 3 page"></app-explore-container>
 </ion-content>
