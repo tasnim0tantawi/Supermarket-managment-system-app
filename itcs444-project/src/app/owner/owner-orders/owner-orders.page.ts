@@ -12,6 +12,18 @@ export class OwnerOrdersPage implements OnInit {
 
 
   }
+  reOrder(orderId: string | undefined) {
+    if (orderId) {
+    let order = this.coldStoreDataService.getOrderByID(orderId) as Order;
+    this.coldStoreDataService.reOrder(order);
+  }
+  }
+  fav(orderId: string | undefined) {
+    if (orderId) {
+    let order = this.coldStoreDataService.getOrderByID(orderId) as Order;
+    this.coldStoreDataService.toggleFavorite(order);
+  }
+  }
 
   ngOnInit() {
   }

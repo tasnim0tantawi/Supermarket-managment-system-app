@@ -25,13 +25,13 @@ export interface Order {
   id?: string;
   title: string;
   name: string;
-  product_ids: string[];
   totalPrice: number;
   totalQuantity: number;
   date: string;
   status: string;
   supplier: string;
   favorite: boolean;
+  numOrdered: number;
 
 }
 export interface shifts {
@@ -319,8 +319,20 @@ export class ColdStoreDataService {
         }
       ));
   }
-  toggleFavorite(product: Product) {
-
+  toggleFavorite(order: Order) {
+    this.ordersCollection.doc(order.id).update({
+      favorite: !order.favorite
+    });
+  }
+  reOrder(order: Order) {
+    this.ordersCollection.doc(order.id).update({
+      status: 'pending',
+      date: new Date().toLocaleDateString(),
+      numOrdered: order.numOrdered + 1
+    });
+  }
+  getOrderByID(id: string){
+    return this.allOrders.find(order => order.id == id) as Order;
   }
 
   checkRole(){

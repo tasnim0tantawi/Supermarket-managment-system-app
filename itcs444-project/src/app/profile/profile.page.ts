@@ -3,9 +3,6 @@ import { ColdStoreDataService, User } from '../cold-store-data.service';
 import { AlertController} from "@ionic/angular";
 import { Router } from '@angular/router';
 
-import {map} from "rxjs/operators";
-import {Observable} from "rxjs";
-import {AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-profile',

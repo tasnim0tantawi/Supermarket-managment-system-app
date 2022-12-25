@@ -1,16 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>owner-orders</ion-title>
+    <ion-title>Cold Store Orders</ion-title>
+    <ion-button routerLink="/owner/tabs/tab1" slot="start" fill="clear" color="primary">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
+    <div *ngIf="order.status=='accepted'">
     <ion-card-header>
       <ion-label> {{order.title}}</ion-label>
-      <ion-button color="danger">Cancel</ion-button>
-        <ion-icon name="heart"></ion-icon>
+      <ion-item *ngIf="order.favorite">
+        <ion-icon name="heart" color="danger" (click)="fav(order.id)"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="!order.favorite">
+        <ion-icon name="heart" (click)="fav(order.id)"></ion-icon>
+      </ion-item>
     </ion-card-header>
     <ion-card-content>
       <ion-label> Supplier Name: {{order.supplier}}</ion-label>
@@ -27,6 +35,10 @@
     <ion-card-content>
       <ion-label> Status: {{order.status}}</ion-label>
     </ion-card-content>
+      <ion-card-content *ngIf="order.favorite">
+        <ion-button (click)="reOrder(order.id)"> Re-Order</ion-button>
+      </ion-card-content>
+    </div>
 
   </ion-card>
 
