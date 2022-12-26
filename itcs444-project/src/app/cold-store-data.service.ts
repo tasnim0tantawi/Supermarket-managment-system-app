@@ -54,7 +54,6 @@ export interface User {
 export interface Supplier {
   id?: string;
   name: string;
-  product_ids: string[];
   phone: string;
   logo: string;
   soldQuantity: number;
@@ -295,9 +294,7 @@ export class ColdStoreDataService {
   updateSupplier(supplier: Supplier){
     // update provider in firebase
     return this.providersCollection.doc(supplier.id).update({
-      id: supplier.id,
       name: supplier.name,
-      product_ids: supplier.product_ids,
       phone: supplier.phone,
       logo: supplier.logo
     })
