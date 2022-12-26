@@ -41,6 +41,7 @@ export class LoginPage implements OnInit {
           alert("Login Successful");
           this.Datasrv.logged=true;
           this.Datasrv.loggedEmail=this.email;
+          this.Datasrv.loggedName= this.Datasrv.getUserByEmail(this.email).name;
 
           let role =this.Datasrv.checkRole();
 

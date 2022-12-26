@@ -85,6 +85,7 @@ export class ColdStoreDataService {
   public loggedId: string="";
 
   public loggedRole:string="";
+  public loggedName: string = "";
 
   allUsers:User[]=[];
   allOrders:Order[]=[] as Order[];
@@ -135,6 +136,10 @@ export class ColdStoreDataService {
 
     this.loggedUser = this.allUsers.find(user => user.email === this.loggedEmail) as User;
     console.log(this.loggedUser);
+  }
+
+  getUserByEmail(email: string){
+    return this.allUsers.find(user => user.email === email) as User;
   }
 
 
