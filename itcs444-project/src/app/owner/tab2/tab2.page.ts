@@ -3,7 +3,7 @@ import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ColdStoreDataService, User, shifts } from "../../cold-store-data.service";
+import { ColdStoreDataService, User, Shift } from "../../cold-store-data.service";
 import { AddshiftPage } from '../../addshift/addshift.page';
 import { ModalController, NavController } from '@ionic/angular';
 
@@ -24,8 +24,8 @@ export class Tab2Page {
   public user : User = {} as User;
 
 
-  shifts: Observable<shifts[]>;
-  shiftsCollectionRef: AngularFirestoreCollection<shifts>;
+  shifts: Observable<Shift[]>;
+  shiftsCollectionRef: AngularFirestoreCollection<Shift>;
 
 
   segchoice:string="shifts";

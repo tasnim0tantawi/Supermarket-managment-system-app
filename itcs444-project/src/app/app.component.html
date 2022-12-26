@@ -18,6 +18,32 @@
               <p>View your profile</p>
             </ion-label>
           </ion-item>
+
+          <div *ngIf="this.coldStoreDataService.loggedRole == 'owner'">
+            <ion-item>
+              <ion-button fill="clear" routerLink="/owner/owner-orders" routerDirection="forward">
+                Invoices
+              </ion-button>
+            </ion-item>
+
+            <ion-item>
+              <ion-button fill="clear" routerLink="/owner/all-orders" routerDirection="forward">
+                All Orders
+              </ion-button>
+            </ion-item>
+
+          </div>
+
+          <div *ngIf="this.coldStoreDataService.loggedRole == 'supplier'">
+            <ion-item>
+              <ion-button fill="clear" routerLink="/supplier/add-product">
+                Add New Product
+              </ion-button>
+            </ion-item>
+          </div>
+          <ion-item>
+            <ion-button fill="clear" color="danger" (click)="this.coldStoreDataService.logOut()">Logout</ion-button>
+          </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>

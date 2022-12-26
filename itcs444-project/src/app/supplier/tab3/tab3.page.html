@@ -17,7 +17,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
-    <div *ngIf="order.status=='pending'">
+    <div *ngIf="order.status=='pending' && order.supplier==this.coldStoreDataService.loggedName">
     <ion-card-header>
       <ion-label> {{order.title}}</ion-label>
     </ion-card-header>

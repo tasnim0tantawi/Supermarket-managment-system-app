@@ -6,8 +6,8 @@
     <ion-title>
       Products and Orders
     </ion-title>
-    <ion-button routerLink="/owner/owner-orders" slot="end"> Invoices </ion-button>
-    <ion-button routerLink="/owner/all-orders" slot="end"> All Orders </ion-button>
+    <ion-button shape="round" fill="outline" routerLink="/owner/owner-orders" slot="end"> Invoices </ion-button>
+    <ion-button shape="round" fill="outline" routerLink="/owner/all-orders" slot="end"> All Orders </ion-button>
 
   </ion-toolbar>
 </ion-header>
@@ -18,6 +18,14 @@
       <ion-title size="large">Products</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-item>
+    <ion-label color="warning"> Select Supplier: </ion-label>
+  <ion-select [(ngModel)]="selectedSupplier" (ionChange)="filterProducts($event)">
+    <ion-select-option value="all" ></ion-select-option>
+    <ion-select-option *ngFor="let supplier of suppliers" [value]="supplier.name">{{supplier.name}}</ion-select-option>
+  </ion-select>
+  </ion-item>
+
   <ion-card *ngFor="let product of products">
 
     <ion-card-header>
@@ -41,6 +49,16 @@
       <ion-item>
         <ion-label>
           Available Quantity: {{product.quantity}}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Supplier: {{product.supplier | titlecase}}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Last Ordered: {{product.category}}
         </ion-label>
       </ion-item>
       <ion-item *ngIf="product.quantity <= product.threshold">

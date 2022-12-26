@@ -5,6 +5,7 @@ import {AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {map} from "rxjs/operators";
 import {ToastController} from "@ionic/angular";
+import {NavController} from "@ionic/angular";
 
 
 export interface Product {
@@ -38,7 +39,7 @@ export interface Order {
   numCartoons: number;
 
 }
-export interface shifts {
+export interface Shift {
   id?:string;
   date:string;
   shift1id: string;
@@ -96,7 +97,7 @@ export class ColdStoreDataService {
   allProducts: Product[] = [] as Product[];
 
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public toastController: ToastController) {
+  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public toastController: ToastController, public navCtrl: NavController) {
     this.productsCollection = afs.collection<Product>('products');
     this.products = this.afs.collection<Product>('products').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -364,6 +365,13 @@ export class ColdStoreDataService {
       duration: 2000
     });
     await toast.present();
+  }
+  logOut(){
+    this.loggedEmail="";
+    this.loggedRole="";
+    this.logged=false;
+    this.navCtrl.navigateBack('/login');
+    return this.afAuth.signOut();
   }
 
 

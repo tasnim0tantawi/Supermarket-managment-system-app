@@ -50,7 +50,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'add-product',
+    path: 'supplier/add-product',
     loadChildren: () => import('./supplier/add-product/add-product.module').then( m => m.AddProductPageModule)
   },
   {

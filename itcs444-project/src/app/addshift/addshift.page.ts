@@ -5,7 +5,7 @@ import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { DocumentReference } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ColdStoreDataService, shifts, User} from "../cold-store-data.service";
+import { ColdStoreDataService, Shift, User} from "../cold-store-data.service";
 
 
 
@@ -23,12 +23,12 @@ export class AddshiftPage implements OnInit {
   public user : User = {} as User;
 
 
-  shifts: Observable<shifts[]>;
-  shiftsCollectionRef: AngularFirestoreCollection<shifts>;
+  shifts: Observable<Shift[]>;
+  shiftsCollectionRef: AngularFirestoreCollection<Shift>;
 
-  public shift : shifts = {} as shifts;
+  public shift : Shift = {} as Shift;
 
-  public item : shifts = {} as shifts;
+  public item : Shift = {} as Shift;
 
   s1:string="";
 
@@ -120,11 +120,11 @@ export class AddshiftPage implements OnInit {
       this.addshift(this.shift)
       .then ((response)=>{alert("insert succeessfully")})
       .catch((err)=>{alert("error")});
-       this.shift={} as shifts;
+       this.shift={} as Shift;
     }
 
 
-    addshift(shift:shifts): Promise<DocumentReference>{
+    addshift(shift:Shift): Promise<DocumentReference>{
        return this.shiftsCollectionRef.add(shift);
     }
 
