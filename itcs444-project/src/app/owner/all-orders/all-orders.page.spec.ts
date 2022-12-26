@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PendingRejectedOrdersPage } from './pending-rejected-orders.page';
+import { AllOrdersPage } from './all-orders.page';
 
-describe('PendingRejectedOrdersPage', () => {
-  let component: PendingRejectedOrdersPage;
-  let fixture: ComponentFixture<PendingRejectedOrdersPage>;
+describe('AllOrdersPage', () => {
+  let component: AllOrdersPage;
+  let fixture: ComponentFixture<AllOrdersPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PendingRejectedOrdersPage ],
+      declarations: [ AllOrdersPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PendingRejectedOrdersPage);
+    fixture = TestBed.createComponent(AllOrdersPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

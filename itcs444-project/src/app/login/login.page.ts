@@ -33,12 +33,12 @@ export class LoginPage implements OnInit {
      login(){
          this.afAuth.signInWithEmailAndPassword(this.email,this.password)
          .then( (response)=>{
-          alert("Login Successful");
           this.Datasrv.logged=true;
           this.Datasrv.loggedEmail=this.email;
           this.Datasrv.loggedName= this.Datasrv.getUserByEmail(this.email).name;
+          this.Datasrv.presentToast('bottom','Welcome '+this.Datasrv.loggedName);
 
-          let role =this.Datasrv.checkRole();
+           let role =this.Datasrv.checkRole();
 
            if (role=="owner"){
              this.navCtrl.navigateForward('/owner/tabs/tab1');
@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
 
          })
          .catch( (err)=>{
-          alert("error");
+            this.Datasrv.presentToast('bottom','Wrong email or password, please try again');
          })
          }
 

@@ -41,17 +41,14 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'place-order/:name',
-    loadChildren: () => import('./place-order/place-order.module').then( m => m.PlaceOrderPageModule)
+    path: 'owner/place-order/:name',
+    loadChildren: () => import('./owner/place-order/place-order.module').then(m => m.PlaceOrderPageModule)
   },
   {
     path: 'modify-product/:name',
     loadChildren: () => import('./modify-product/modify-product.module').then( m => m.ModifyProductPageModule)
   },
-  {
-    path: 'pending-rejected-orders',
-    loadChildren: () => import('./pending-rejected-orders/pending-rejected-orders.module').then( m => m.PendingRejectedOrdersPageModule)
-  },
+
   {
     path: 'add-product',
     loadChildren: () => import('./supplier/add-product/add-product.module').then( m => m.AddProductPageModule)
@@ -59,6 +56,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'owner/all-orders',
+    loadChildren: () => import('./owner/all-orders/all-orders.module').then(m => m.AllOrdersPageModule)
   }
 ];
 @NgModule({

@@ -34,13 +34,13 @@ export class ProfilePage implements OnInit {
   }
   updateUser(){
     this.coldStoreDataService.updateUser(this.user).then(() => {
-      this.showUpdated();
+      this.coldStoreDataService.presentToast("bottom", "Your profile has been updated !");
     }
     );
   }
   deleteUser() {
     this.coldStoreDataService.deleteUser(this.user).then(() => {
-      this.showDeleted().then(() => {
+      this.coldStoreDataService.presentToast("bottom", "Sad to see you leave :(").then(() => {
           // log out
           this.coldStoreDataService.logged = false;
           this.router.navigate(['/login']);
@@ -50,24 +50,6 @@ export class ProfilePage implements OnInit {
     });
   }
 
-
-
-  async showUpdated(){
-    const alert = await this.alertController.create({
-      header: 'Updated!',
-      message: 'Your profile has been updated.',
-      buttons: ['OK']
-    });
-    await alert.present();
-    }
-  async showDeleted(){
-    const alert = await this.alertController.create({
-      header: 'Deleted!',
-      message: 'Your profile has been deleted.',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
 
 
 

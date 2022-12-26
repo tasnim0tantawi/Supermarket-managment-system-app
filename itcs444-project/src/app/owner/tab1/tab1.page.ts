@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
-import {ColdStoreDataService, Order, Supplier, User} from "../../cold-store-data.service";
+import {ColdStoreDataService, Order, Product, Supplier, User} from "../../cold-store-data.service";
 import { ModalController, NavController } from '@ionic/angular';
 import { Chart } from 'chart.js';
 
@@ -12,17 +12,25 @@ import { Chart } from 'chart.js';
 })
 export class Tab1Page implements AfterViewInit {
   @ViewChild('barCanvas') private barCanvas: ElementRef = new ElementRef(null);
-  @ViewChild('lineCanvas') private lineCanvas: ElementRef = new ElementRef(null);
+  @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef = new ElementRef(null);
+
 
   barChart: any;
   lineChart: any;
-  suppliers: User[] = this.Datasrv.allUsers.filter((user) => user.role == "supplier") as User[];
+  doughnutChart: any;
+  suppliers: Supplier[] = this.Datasrv.allSuppliers as Supplier[];
   supplierNames: string[] = this.suppliers.map((supplier) => supplier.name);
+  supplierSales: number[] = this.suppliers.map((supplier) => supplier.noOrders);
+  products: Product[] = this.Datasrv.allProducts;
+  productNames: string[] = this.products.map((product) => product.name);
+  productSales: number[] = this.products.map((product) => product.soldQuantity);
 
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
       console.log(this.suppliers);
       console.log(this.supplierNames);
+      console.log(this.products);
+      console.log(this.productNames);
       if (!this.Datasrv.logged || this.Datasrv.loggedRole!="owner"){
         this.navCtrl.navigateBack('/login');
 
@@ -31,16 +39,43 @@ export class Tab1Page implements AfterViewInit {
       }}
   ngAfterViewInit() {
     this.barChartMethod();
-    this.lineChartMethod();
+    this.doughnutChartMethod();
+  }
+
+  doughnutChartMethod() {
+    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+      type: 'doughnut',
+      data: {
+        labels: this.supplierNames,
+        datasets: [{
+          label: 'Number of Orders',
+          data: this.supplierSales,
+          backgroundColor: [
+            '#FFB6C1',
+            '#87CEFA',
+            '#FFD700',
+            '#90EE90',
+            '#BA55D3',
+          ],
+          hoverBackgroundColor: [
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384'
+          ]
+        }]
+      }
+    });
   }
   barChartMethod() {
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['BJP', 'INC', 'AAP', 'CPI', 'CPI-M', 'NCP'],
+        labels: this.productNames,
         datasets: [{
-          label: '# of Votes',
-          data: [200, 50, 30, 15, 20, 34],
+          label: 'Number of Products',
+          data: this.productSales,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -73,37 +108,6 @@ export class Tab1Page implements AfterViewInit {
   }
 
 
-  lineChartMethod() {
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: 'line',
-      data: {
-        labels: this.supplierNames,
-        datasets: [
-          {
-            label: 'Suppliers Sales',
-            fill: false,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40, 10, 5, 50, 10, 15],
-            spanGaps: false,
-          }
-        ]
-      }
-    });
-  }
 }
 
 

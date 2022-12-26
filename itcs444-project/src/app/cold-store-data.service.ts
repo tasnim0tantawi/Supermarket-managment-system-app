@@ -57,6 +57,8 @@ export interface Supplier {
   name: string;
   phone: string;
   soldQuantity: number;
+  logo: string;
+  noOrders: number;
 }
 
 @Injectable({
@@ -296,6 +298,8 @@ export class ColdStoreDataService {
     return this.providersCollection.doc(supplier.id).update({
       name: supplier.name,
       phone: supplier.phone,
+      logo: supplier.logo,
+
     })
 
   }

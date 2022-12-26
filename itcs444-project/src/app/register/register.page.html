@@ -5,5 +5,51 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Confirm Password</ion-label>
+      <ion-input type="password" [(ngModel)]="passwordConfirm"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-radio-group [(ngModel)]="role">
+    <ion-list-header>
+      <ion-label>Role</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Owner</ion-label>
+      <ion-radio value="owner"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Employee</ion-label>
+      <ion-radio value="employee"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Supplier</ion-label>
+      <ion-radio value="supplier"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+  <div *ngIf="role == 'supplier'">
+    <ion-item>
+      <ion-label position="floating">Logo Link: </ion-label>
+      <ion-input type="text" [(ngModel)]="logo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Phone Number: </ion-label>
+      <ion-input type="text" [(ngModel)]="phone"></ion-input>
+    </ion-item>
+  </div>
+  <ion-button expand="block" (click)="addUser()">Register</ion-button>
 
 </ion-content>

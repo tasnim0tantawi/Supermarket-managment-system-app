@@ -18,7 +18,7 @@ export class OwnerOrdersPage implements OnInit {
     let order = this.coldStoreDataService.getOrderByID(orderId) as Order;
     this.coldStoreDataService.reOrder(order);
     //toast message
-    this.presentReorder('top');
+      this.coldStoreDataService.presentToast('top','Reordered successfully!');
 
   }
   }
@@ -45,15 +45,7 @@ export class OwnerOrdersPage implements OnInit {
 
     await toast.present();
   }
-  async presentReorder(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: 'Item reordered successfully!',
-      duration: 1500,
-      position: position
-    });
 
-    await toast.present();
-  }
 
   ngOnInit() {
   }

@@ -6,21 +6,22 @@
 
 <ion-content>
 
-
   <ion-item>
-    <ion-label>Email</ion-label>
-    <ion-input placeholder="Enter Email Here" [(ngModel)]="email" type="text"></ion-input>
+    <ion-label>Email:</ion-label>
+    <ion-input placeholder="Enter email here" [(ngModel)]="email" type="text"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Password</ion-label>
-    <ion-input placeholder="Enter Password Here" [(ngModel)]="password" type="password"></ion-input>
+    <ion-label>Password:</ion-label>
+    <ion-input placeholder="Enter password here" [(ngModel)]="password" type="password"></ion-input>
   </ion-item>
 
 
   <div align="center">
     <ion-button (click)="login()">Sign In</ion-button>
   </div>
+  <ion-button routerLink="/register" fill="clear" color="warning" expand="block"> Don't have an account? Sign Up</ion-button>
+
 
 
 </ion-content>

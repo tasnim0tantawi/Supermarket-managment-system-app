@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>All Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment [(ngModel)]="segChoice">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="accepted">
+      <ion-label>Accepted</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="rejected">
+      <ion-label>Rejected</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pending">
+      <ion-label>Pending</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+  <div *ngIf="segChoice == 'all'">
+    <ion-list>
+      <ion-item *ngFor="let order of orders">
+        <ion-label>
+          <h2>{{order.title}}</h2>
+        </ion-label>
+        <ion-note>
+          <h2>{{order.status}}</h2>
+        </ion-note>
+        <ion-label>
+          <h2>{{order.totalPrice}} BHD</h2>
+        </ion-label>
+        <ion-label *ngFor="let date of order.date">
+          <h2>{{date}}</h2>
+        </ion-label>
+
+
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <div *ngIf="segChoice == 'accepted'">
+    <ion-list>
+    </ion-list>
+  </div>
+
+  <div *ngIf="segChoice == 'rejected'">
+    <ion-list>
+
+    </ion-list>
+  </div>
+
+  <div *ngIf="segChoice == 'pending'">
+    <ion-list>
+    </ion-list>
+  </div>
+
+
+</ion-content>
