@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-button routerLink="/owner/tabs/tab1" slot="start" fill="clear" color="primary">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
     <ion-title>All Orders</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,43 +24,43 @@
 
   </ion-segment>
 
-  <div *ngIf="segChoice == 'all'">
-    <ion-list>
-      <ion-item *ngFor="let order of orders">
-        <ion-label>
-          <h2>{{order.title}}</h2>
-        </ion-label>
-        <ion-note>
-          <h2>{{order.status}}</h2>
-        </ion-note>
-        <ion-label>
-          <h2>{{order.totalPrice}} BHD</h2>
-        </ion-label>
-        <ion-label *ngFor="let date of order.date">
-          <h2>{{date}}</h2>
-        </ion-label>
+    <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
+      <div *ngIf="segChoice == order.status || segChoice=='all'" >
+        <ion-card-header>
+          <ion-label> {{order.title}}</ion-label>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label> Supplier Name: {{order.supplier}}</ion-label>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-list>
+            <ion-list-header>Dates: </ion-list-header>
+            <ion-item *ngFor="let date of order.date; let i=index">
+              <p> Order {{i+1}}: {{date}} </p>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-label> Quantity: {{order.totalQuantity}}</ion-label>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-label> Price: {{order.totalPrice}}</ion-label>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-label> Status: {{order.status}}</ion-label>
+        </ion-card-content>
+        <ion-card-content *ngIf="order.status=='accepted' && order.favorite">
+          <ion-button color="warning" fill="clear" (click)="reOrder(order.id)"> </ion-button>
+        </ion-card-content>
+        <ion-card-content *ngIf="order.status=='pending'">
+          <ion-button color="warning" fill="clear" (click)="cancelOrder(order.id)"> </ion-button>
+        </ion-card-content>
+
+      </div>
+
+    </ion-card>
 
 
-      </ion-item>
-
-    </ion-list>
-  </div>
-
-  <div *ngIf="segChoice == 'accepted'">
-    <ion-list>
-    </ion-list>
-  </div>
-
-  <div *ngIf="segChoice == 'rejected'">
-    <ion-list>
-
-    </ion-list>
-  </div>
-
-  <div *ngIf="segChoice == 'pending'">
-    <ion-list>
-    </ion-list>
-  </div>
 
 
 </ion-content>

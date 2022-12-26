@@ -14,11 +14,24 @@ export class AllOrdersPage implements OnInit {
 
   ngOnInit() {
   }
-  cancelOrder(id:string){
+  cancelOrder(id:string | undefined){
+    if (id){
     let order = this.coldStoreDataService.getOrderByID(id);
-    this.coldStoreDataService.deleteOrder(order);
-
-
+    this.coldStoreDataService.deleteOrder(order).then(
+      ()=>{
+        this.coldStoreDataService.presentToast("top","Order cancelled!").catch(
+          (err)=>{
+            this.coldStoreDataService.presentToast("top","Error cancelling order!")
+          });
+      }
+    )
+  }
+  }
+  reOrder(id:string | undefined){
+    if (id) {
+      let order = this.coldStoreDataService.getOrderByID(id) as Order;
+      this.coldStoreDataService.reOrder(order);
+    }
   }
 
 }

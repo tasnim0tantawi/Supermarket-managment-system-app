@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Modify Product</ion-title>
-    <ion-icon name="arrow-back" routerLink="/owner/tabs/tab3"></ion-icon>
-
+    <ion-button routerLink="/owner/tabs/tab3" slot="start" fill="clear" color="primary">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -21,6 +22,9 @@
     </ion-item>
 
   <ion-button (click)="updateProduct()">Update</ion-button>
+    <ion-button routerLink="/owner/tabs/tab3" slot="start" color="danger">
+      Cancel
+    </ion-button>
   </ion-list>
 
 </ion-content>

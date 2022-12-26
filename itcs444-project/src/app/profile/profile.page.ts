@@ -40,6 +40,11 @@ export class ProfilePage implements OnInit {
   }
   deleteUser() {
     this.coldStoreDataService.deleteUser(this.user).then(() => {
+      if (this.user.role === 'supplier') {
+
+        this.coldStoreDataService.deleteSupplier(this.coldStoreDataService.getSupplierByName(this.user.name));
+
+      }
       this.coldStoreDataService.presentToast("bottom", "Sad to see you leave :(").then(() => {
           // log out
           this.coldStoreDataService.logged = false;

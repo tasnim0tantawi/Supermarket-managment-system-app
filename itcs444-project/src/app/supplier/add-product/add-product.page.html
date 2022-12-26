@@ -5,29 +5,34 @@
 </ion-header>
 <ion-list>
   <ion-item>
-    <ion-label position="floating">Product Name</ion-label>
+    <ion-label position="floating"> Name</ion-label>
     <ion-input type="text" [(ngModel)]="name"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Price</ion-label>
+    <ion-label position="floating"> Price</ion-label>
     <ion-input type="number" [(ngModel)]="price"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Description</ion-label>
+    <ion-label position="floating"> Description</ion-label>
     <ion-input type="text" [(ngModel)]="description"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Category</ion-label>
+    <ion-label position="floating"> Category</ion-label>
     <ion-input type="text" [(ngModel)]="category"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Sold Quantity</ion-label>
+    <ion-label position="floating"> Sold Quantity</ion-label>
     <ion-input type="number" [(ngModel)]="soldQuantity"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Image</ion-label>
+    <ion-label position="floating"> Image</ion-label>
     <ion-input type="text" [(ngModel)]="image"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label position="floating">Items/Cartoon</ion-label>
+    <ion-input type="number" [(ngModel)]="perCartoon"></ion-input>
+  </ion-item>
+
 
 </ion-list>
 <ion-button (click)="addProduct()">Add Product</ion-button>

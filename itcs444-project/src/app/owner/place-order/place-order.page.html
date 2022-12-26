@@ -1,15 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    
+    <ion-button routerLink="/owner/tabs/tab3" slot="start" fill="clear" color="primary">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
     <ion-title>Place Order</ion-title>
-    <ion-icon name="arrow-back" routerLink="/owner/tabs/tab3"></ion-icon>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Place Order</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">{{product.name}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Number of Cartoons: </ion-label>
+        <ion-input type="number" [(ngModel)]="numCartoons"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label >Total Quantity: {{numCartoons*product.perCartoon}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Total Price: {{product.price *numCartoons *product.perCartoon}} BHD</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" (click)="placeOrder()">Place Order</ion-button>
+
 
 
 </ion-content>

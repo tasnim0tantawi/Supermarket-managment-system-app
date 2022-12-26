@@ -21,6 +21,7 @@ export interface Product {
   supplierEmail: string;
   sellPrice: number;
   threshold: number;
+  perCartoon: number;
 }
 
 export interface Order {
@@ -34,6 +35,7 @@ export interface Order {
   supplier: string;
   favorite: boolean;
   numOrdered: number;
+  numCartoons: number;
 
 }
 export interface shifts {
@@ -337,6 +339,9 @@ export class ColdStoreDataService {
   }
   getOrderByID(id: string){
     return this.allOrders.find(order => order.id == id) as Order;
+  }
+  getSupplierByName(name: string){
+    return this.allSuppliers.find(supplier => supplier.name == name) as Supplier;
   }
 
   checkRole(){

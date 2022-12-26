@@ -12,12 +12,12 @@ import { Chart } from 'chart.js';
 })
 export class Tab1Page implements AfterViewInit {
   @ViewChild('barCanvas') private barCanvas: ElementRef = new ElementRef(null);
-  @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef = new ElementRef(null);
+  @ViewChild('polarAreaCanvas') private polarAreaCanvas: ElementRef = new ElementRef(null);
 
 
   barChart: any;
   lineChart: any;
-  doughnutChart: any;
+  polarAreaChart: any;
   suppliers: Supplier[] = this.Datasrv.allSuppliers as Supplier[];
   supplierNames: string[] = this.suppliers.map((supplier) => supplier.name);
   supplierSales: number[] = this.suppliers.map((supplier) => supplier.noOrders);
@@ -39,12 +39,12 @@ export class Tab1Page implements AfterViewInit {
       }}
   ngAfterViewInit() {
     this.barChartMethod();
-    this.doughnutChartMethod();
+    this.polarAreaChartMethod();
   }
 
-  doughnutChartMethod() {
-    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      type: 'doughnut',
+  polarAreaChartMethod() {
+    this.polarAreaChart = new Chart(this.polarAreaCanvas.nativeElement, {
+      type: 'polarArea',
       data: {
         labels: this.supplierNames,
         datasets: [{

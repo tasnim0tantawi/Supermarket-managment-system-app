@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'modify-product/:name',
-    loadChildren: () => import('./modify-product/modify-product.module').then( m => m.ModifyProductPageModule)
+    loadChildren: () => import('./owner/modify-product/modify-product.module').then(m => m.ModifyProductPageModule)
   },
 
   {

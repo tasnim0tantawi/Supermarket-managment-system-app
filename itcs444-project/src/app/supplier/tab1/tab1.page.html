@@ -22,6 +22,12 @@
       <ion-item>
         <ion-label>Description: {{product.description}} </ion-label>
       </ion-item>
+      <ion-item>
+        <ion-label>Price: {{product.price}} </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-button routerLink="/product-details/{{product.name}}">Edit</ion-button>
+      </ion-item>
 
     </ion-card-content>
     </div>

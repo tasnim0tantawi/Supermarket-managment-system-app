@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ColdStoreDataService, Product} from "../cold-store-data.service";
+import { ColdStoreDataService, Product} from "../../cold-store-data.service";
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
