@@ -27,10 +27,6 @@ export class Tab1Page implements AfterViewInit {
 
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {
-      console.log(this.suppliers);
-      console.log(this.supplierNames);
-      console.log(this.products);
-      console.log(this.productNames);
       if (!this.Datasrv.logged || this.Datasrv.loggedRole!="owner"){
         this.navCtrl.navigateBack('/login');
 

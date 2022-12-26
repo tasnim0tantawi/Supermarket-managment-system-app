@@ -18,8 +18,11 @@ export class PlaceOrderPage implements OnInit {
 
 
   constructor(public coldStoreDataService: ColdStoreDataService, public route: ActivatedRoute, public navCtrl: NavController) {
-    this.product = this.coldStoreDataService.getProductByName(this.productName);
-  }
+    this.product = this.coldStoreDataService.allProducts.find((product) => {
+      return product.name === this.productName;
+    }) as Product;
+    console.log(this.product);
+}
 
 
   placeOrder(){

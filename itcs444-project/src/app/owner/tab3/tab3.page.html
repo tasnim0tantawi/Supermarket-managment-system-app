@@ -25,15 +25,33 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
+        <img src="{{product.image}}" alt="product image" width="150px">
+      </ion-item>
+
+      <ion-item>
         <ion-label>
         {{product.description| titlecase}}
         </ion-label>
       </ion-item>
       <ion-item>
         <ion-label>
-          Price: {{product.price}}
+          Price: {{product.price}} BHD
         </ion-label>
       </ion-item>
+      <ion-item>
+        <ion-label>
+          Available Quantity: {{product.quantity}}
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="product.quantity <= product.threshold">
+        <ion-label>
+          <ion-text color="danger">
+            Warning: Quantity is below threshold.
+          </ion-text>
+        </ion-label>
+        <ion-button fill="clear" routerLink="/owner/place-order/{{product.name}}" slot="end"> Order more? </ion-button>
+      </ion-item>
+
       <ion-button routerLink="/owner/place-order/{{product.name}}"> Order More </ion-button>
       <ion-button routerLink="/modify-product/{{product.name}}"> Modify </ion-button>
 

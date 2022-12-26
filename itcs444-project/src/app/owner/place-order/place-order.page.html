@@ -9,27 +9,53 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Place Order</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
+  <h1>Order {{product.name}}</h1>
+<ion-grid>
+  <ion-row>
+    <ion-col>
       <ion-item>
-        <ion-label position="floating">{{product.name}}</ion-label>
+        <ion-label>Number of Cartoons: </ion-label>
       </ion-item>
+    </ion-col>
+    <ion-col>
       <ion-item>
-        <ion-label position="floating">Number of Cartoons: </ion-label>
         <ion-input type="number" [(ngModel)]="numCartoons"></ion-input>
       </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
       <ion-item>
-        <ion-label >Total Quantity: {{numCartoons*product.perCartoon}}</ion-label>
+        <ion-label>Total Quantity: </ion-label>
       </ion-item>
+    </ion-col>
+    <ion-col>
       <ion-item>
-        <ion-label position="floating">Total Price: {{product.price *numCartoons *product.perCartoon}} BHD</ion-label>
+        <ion-label color="warning">  {{numCartoons * product.perCartoon}} BHD </ion-label>
       </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-button expand="block" (click)="placeOrder()">Place Order</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Total Price: </ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+     <ion-label color="warning">  {{numCartoons * product.perCartoon * product.price}} </ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+
+</ion-grid>
+
+  <ion-button (click)="placeOrder()">Place Order</ion-button>
+  <ion-button color="danger" routerLink="/owner/tabs/tab1">Cancel </ion-button>
 
 
 
