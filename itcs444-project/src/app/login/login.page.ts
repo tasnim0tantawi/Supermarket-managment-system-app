@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import * as firebase from 'firebase/app';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { DocumentReference } from '@angular/fire/compat/firestore';
-import { map, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { ColdStoreDataService } from '../cold-store-data.service';
 import { ModalController, NavController } from '@ionic/angular';
 

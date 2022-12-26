@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
-import {ColdStoreDataService, Order, Supplier} from "../../cold-store-data.service";
+import {ColdStoreDataService, Order, Supplier, User} from "../../cold-store-data.service";
 import { ModalController, NavController } from '@ionic/angular';
 import { Chart } from 'chart.js';
 
@@ -16,8 +16,8 @@ export class Tab1Page implements AfterViewInit {
 
   barChart: any;
   lineChart: any;
-  suppliers: Supplier[] = this.Datasrv.allSuppliers as Supplier[];
-  supplierNames:string[] = this.suppliers.map((supplier)=>supplier.name);
+  suppliers: User[] = this.Datasrv.allUsers.filter((user) => user.role == "supplier") as User[];
+  supplierNames: string[] = this.suppliers.map((supplier) => supplier.name);
 
 
     constructor(public afs: AngularFirestore , public Datasrv: ColdStoreDataService,public ModalCtrl:ModalController, public navCtrl:NavController) {

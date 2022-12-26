@@ -4,6 +4,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {map} from "rxjs/operators";
+import {ToastController} from "@ionic/angular";
 
 
 export interface Product {
@@ -55,7 +56,6 @@ export interface Supplier {
   id?: string;
   name: string;
   phone: string;
-  logo: string;
   soldQuantity: number;
 }
 
@@ -92,7 +92,7 @@ export class ColdStoreDataService {
   allProducts: Product[] = [] as Product[];
 
 
-  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {
+  constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public toastController: ToastController) {
     this.productsCollection = afs.collection<Product>('products');
     this.products = this.afs.collection<Product>('products').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -296,7 +296,6 @@ export class ColdStoreDataService {
     return this.providersCollection.doc(supplier.id).update({
       name: supplier.name,
       phone: supplier.phone,
-      logo: supplier.logo
     })
 
   }
@@ -349,6 +348,13 @@ export class ColdStoreDataService {
       }
     }
     return this.loggedRole;
+  }
+  async presentToast(position: 'top' | 'bottom', message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    await toast.present();
   }
 
 
