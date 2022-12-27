@@ -156,8 +156,14 @@ export class Tab1Page {
     }
     if(!this.leave){
       this.addtrade(this.trade)
-        .then ((response)=>{alert("insert succeessfully to trade")})
-        .catch((err)=>{alert("error")});
+        .then ((response)=>{
+          this.Datasrv.presentToast("top","Trade request sent");
+        })
+        .catch(
+          (err)=>{
+            this.Datasrv.presentToast("top","Error sending trade request");
+          })
+      ;
       this.trade={} as Trade;
     }
   }
@@ -170,21 +176,20 @@ export class Tab1Page {
   update(trade: Trade){
     this.Datasrv.updateEmpStatusAccept(trade);
     this.Datasrv.checkStatus(trade);
-    alert("accepted, this trade is now pending for owner approval");
+    this.Datasrv.presentToast("top","accepted, this trade is now pending for owner approval");
   }
 
   updatereject(trade: Trade){
-    // this.updatestatusreject(trade);
     this.Datasrv.updateEmpStatusReject(trade);
     this.Datasrv.checkStatus(trade);
     // this.delete(trade);
-    alert("rejected");
+    this.Datasrv.presentToast("top","Trade request rejected");
   }
 
 //delete trade
   delete(trade: Trade){
     this.Datasrv.deleteTrade(trade);
-    alert("deleted");
+    this.Datasrv.presentToast("top","Trade request deleted");
   }
 
 

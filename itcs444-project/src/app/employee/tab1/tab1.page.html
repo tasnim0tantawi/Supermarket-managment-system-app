@@ -1,8 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Trades
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -46,7 +49,6 @@
             <div *ngIf="shiftchoice==='s2'" align="center">
               <h1>{{s.shift2name}}</h1>
             </div>
-
             <ion-button fill="outline" color="light" (click)="InsertTrade(s)" > Request Trade </ion-button>
           </ion-card-content>
 
@@ -54,12 +56,6 @@
       </ion-card>
 
     </div>
-
-    <div *ngIf="segchoice==='form'">
-
-
-    </div>
-
 
 
     <div *ngIf="segchoice==='status'">
@@ -104,9 +100,7 @@
           </ion-buttons>
         </ion-card>
       </div>
-
     </div>
-
 
   </div>
 </ion-content>
