@@ -1,12 +1,113 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <div align="center"><ion-title>EMPLOYEES</ion-title></div>
+    <ion-title>
+      Tab 2
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
 
+  <div *ngIf="this.Datasrv.logged===false">
+    <div align="center"><ion-button routerLink="/login" routerDirection="forward">Log in</ion-button></div>
+  </div>
 
 
+
+  <div *ngIf="this.Datasrv.logged===true && this.Datasrv.loggedRole==='employee'">
+    <ion-segment [(ngModel)]="segchoice">
+      <ion-segment-button value="shifts">View Shifts Schedule</ion-segment-button>
+      <!-- <ion-segment-button value="form">Form Request Trade</ion-segment-button> -->
+      <ion-segment-button value="status">View Status of  the request</ion-segment-button>
+      <ion-segment-button value="pending">Trade Pending Request</ion-segment-button>
+    </ion-segment>
+
+
+    <div *ngIf="segchoice==='shifts'">
+
+      <ion-card *ngFor="let s of shifts | async" color="medium">
+        <div *ngIf="s.shift2name===this.Datasrv.loggedName || s.shift1name===this.Datasrv.loggedName">
+          <div align="center">
+            <h3>{{s.date}}</h3>
+          </div>
+          <ion-card-content>
+
+            <ion-segment [(ngModel)]="shiftchoice" color="dark">
+              <ion-segment-button value="s1">Shift 1</ion-segment-button>
+              <ion-segment-button value="s2">Shift 2</ion-segment-button>
+            </ion-segment>
+
+            <br>
+            <div *ngIf="shiftchoice==='s1'" align="center">
+              <h1>{{s.shift1name}}</h1>
+            </div>
+
+            <div *ngIf="shiftchoice==='s2'" align="center">
+              <h1>{{s.shift2name}}</h1>
+            </div>
+
+            <ion-button fill="outline" color="light" (click)="InsertTrade(s)" > Request Trade </ion-button>
+          </ion-card-content>
+
+        </div>
+      </ion-card>
+
+    </div>
+
+    <div *ngIf="segchoice==='form'">
+
+
+    </div>
+
+
+
+    <div *ngIf="segchoice==='status'">
+
+      <div *ngFor="let t of trades | async">
+        <ion-card *ngIf="(t.tradeToName!==this.Datasrv.loggedName) && (t.tradeFromName===this.Datasrv.loggedName) || (t.tradeToName==='None' ||  t.tradeFromName==='None')" color="light">
+          <div align="center"><h2>{{t.tradeDate}}</h2></div>
+          <div align="center"><h4>
+            <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+            This trade made by you to {{t.tradeToName}}
+          </h4>
+          </div>
+          <div>
+            <h4 color="warning">The status of your trade: {{t.empStatus}}</h4>
+            <h4 color="warning">The status of your trade(owner): {{t.ownerStatus}}</h4>
+          </div>
+          <ion-button color="danger"  expand="full" *ngIf="t.ownerStatus==='pending' && t.empStatus==='pending'" (click)="delete(t)">Delete</ion-button>
+          <ion-button  expand="full" *ngIf="t.empStatus==='accepted' && t.ownerStatus==='accepted'" color="success">This Shift has been accepeted</ion-button>
+          <ion-button  expand="full" *ngIf="t.ownerStatus==='rejected'" color="danger">This Shift has been rejected by owner</ion-button>
+          <ion-button  expand="full" *ngIf="t.empStatus==='rejected'" color="danger">This Shift has been rejected by employee</ion-button>
+        </ion-card>
+      </div>
+    </div>
+
+
+    <div *ngIf="segchoice==='pending'">
+      <div *ngFor="let t of trades | async">
+        <ion-card *ngIf="(t.tradeFromName!==this.Datasrv.loggedName) && (t.tradeToName===this.Datasrv.loggedName)" color="light">
+          <div align="center"><h2>{{t.tradeDate}}</h2></div>
+          <div  align="center"><h4>
+            <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+            This trade pending until you accept it, from {{t.tradeFromName}}
+          </h4>
+          </div>
+          <div>
+            <h4>The status of your trade: {{t.empStatus}}</h4>
+            <h4>The status of your trade(owner): {{t.ownerStatus}}</h4>
+          </div>
+          <ion-buttons align="center">
+            <ion-button fill="outline" color="primary" (click)="update(t)">Accept</ion-button>
+            <ion-button  fill="outline" color="danger" (click)="updatereject(t)">Reject</ion-button>
+          </ion-buttons>
+        </ion-card>
+      </div>
+
+    </div>
+
+
+  </div>
 </ion-content>
+

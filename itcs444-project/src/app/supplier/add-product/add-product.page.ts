@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ColdStoreDataService, Product, User } from '../../cold-store-data.service';
 import { ToastController} from "@ionic/angular";
+import {NavController} from "@ionic/angular";
+
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.page.html',
@@ -13,7 +15,6 @@ export class AddProductPage implements OnInit {
   description: string = '';
   image: string = '';
   price: number = 0;
-  soldQuantity: number = 0;
   category: string = '';
   perCartoon: number = 0;
 
@@ -21,7 +22,7 @@ export class AddProductPage implements OnInit {
 
 
 
-  constructor(public coldStoreDataService: ColdStoreDataService, public toastController: ToastController) {
+  constructor(public coldStoreDataService: ColdStoreDataService, public toastController: ToastController, public navCtrl: NavController) {
     this.user = this.coldStoreDataService.allUsers.find(user => user.email === this.coldStoreDataService.loggedEmail) as User;
 
   }
@@ -37,12 +38,19 @@ export class AddProductPage implements OnInit {
       price: this.price,
       sellPrice: this.price,
       category: this.category,
-      soldQuantity: this.soldQuantity,
+      soldQuantity: 0,
       threshold: 20,
       perCartoon: this.perCartoon
     }
-    this.coldStoreDataService.createProduct(this.product);
+    this.coldStoreDataService.createProduct(this.product).then(() => {
+      this.coldStoreDataService.presentToast("top","Product added successfully");
+      this.navCtrl.navigateBack('/supplier/tabs/tab1');
 
+    }
+    ).catch((error) => {
+      this.coldStoreDataService.presentToast("top",error.message);
+    }
+    );
 
   }
 
