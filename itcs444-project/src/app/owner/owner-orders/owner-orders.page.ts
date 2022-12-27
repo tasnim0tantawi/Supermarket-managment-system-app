@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ColdStoreDataService, Order, User } from '../../cold-store-data.service';
+import {ColdStoreDataService, Order} from '../../cold-store-data.service';
 import { ToastController} from "@ionic/angular";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+
 
 @Component({
   selector: 'app-owner-orders',
@@ -8,8 +11,16 @@ import { ToastController} from "@ionic/angular";
   styleUrls: ['./owner-orders.page.scss'],
 })
 export class OwnerOrdersPage implements OnInit {
+  orders: Observable<Order[]> = this.coldStoreDataService.orders;
+  selectedProduct: string = 'all';
 
   constructor(public coldStoreDataService: ColdStoreDataService, public toastController: ToastController) {
+    // filter accepted orders
+    this.orders = this.coldStoreDataService.orders.pipe(
+      map((orders: Order[]) => orders.filter(order => order.status === 'accepted'))
+    );
+
+    console.log(this.orders);
 
 
   }
@@ -24,17 +35,18 @@ export class OwnerOrdersPage implements OnInit {
   }
   fav(orderId: string | undefined) {
     if (orderId) {
-    let order = this.coldStoreDataService.getOrderByID(orderId) as Order;
-    this.coldStoreDataService.toggleFavorite(order);
-    //toast message
+      let order = this.coldStoreDataService.getOrderByID(orderId) as Order;
+      this.coldStoreDataService.toggleFavorite(order);
+      //toast message
       if (!order.favorite) {
         this.presentToastAddedFav('top', 'Added to');
-      }
-      else {
+      } else {
         this.presentToastAddedFav('top', 'Removed from');
       }
 
-  }
+    }
+
+
   }
   async presentToastAddedFav(position: 'top' | 'middle' | 'bottom', message: string) {
     const toast = await this.toastController.create({
@@ -45,6 +57,19 @@ export class OwnerOrdersPage implements OnInit {
 
     await toast.present();
   }
+  filterInvoice(event: any) {
+    this.orders = this.coldStoreDataService.orders.pipe(
+      map((orders: Order[]) => orders.filter(order => order.status === 'accepted'))
+    );
+    if (this.selectedProduct !== '' && this.selectedProduct !== 'All') {
+      this.orders = this.orders.pipe(
+        map((orders: Order[]) => orders.filter(order => order.name === this.selectedProduct))
+      );
+    }
+
+    }
+
+
 
 
   ngOnInit() {

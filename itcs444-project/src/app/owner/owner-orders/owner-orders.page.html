@@ -5,15 +5,22 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-
     <ion-title>Cold Store Invoices</ion-title>
 
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-item>
+    <ion-label> Select Product:</ion-label>
+  <ion-select [(ngModel)]="selectedProduct" (ionChange)="filterInvoice($event)">
+    <ion-select-option value="all">All</ion-select-option>
+    <ion-select-option *ngFor="let product of this.coldStoreDataService.allProducts" [value]="product.name">{{product.name}}</ion-select-option>
+  </ion-select>
+  </ion-item>
 
   <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
-    <div *ngIf="order.status=='accepted'">
+    <div *ngIf="order.status==='accepted'">
+      <div *ngIf="order.name ==selectedProduct || selectedProduct=='all'" >
     <ion-card-header>
       <ion-label> {{order.title}}</ion-label>
       <ion-item *ngIf="order.favorite">
@@ -47,7 +54,7 @@
         <ion-button fill="clear" (click)="reOrder(order.id)"> Re-Order?</ion-button>
       </ion-card-content>
     </div>
-
+    </div>
   </ion-card>
 
 </ion-content>
