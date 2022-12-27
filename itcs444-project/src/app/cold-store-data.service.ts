@@ -7,7 +7,16 @@ import {map} from "rxjs/operators";
 import {ToastController} from "@ionic/angular";
 import {NavController} from "@ionic/angular";
 
-
+export interface Trade {
+  id?:string;
+  empStatus:string;
+  ownerStatus: string;
+  tradeFrom: string;
+  tradeFromName: string;
+  tradeTo: string;
+  tradeToName: string;
+  tradeDate: string;
+}
 export interface Product {
   id?: string;
   name: string;
@@ -95,6 +104,14 @@ export class ColdStoreDataService {
   allOrders:Order[]=[] as Order[];
   allSuppliers: Supplier[] = [] as Supplier[];
   allProducts: Product[] = [] as Product[];
+  updateStattobothaccept:boolean=false;
+  updateStattotrejectByOwn :boolean=false;
+  updateStattotrejectByEmp:boolean=false;
+
+  trades: Observable<Trade[]>;
+  tradesCollectionRef: AngularFirestoreCollection<Trade>;
+  public trade : Trade = {} as Trade;
+
 
 
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public toastController: ToastController, public navCtrl: NavController) {
@@ -132,11 +149,25 @@ export class ColdStoreDataService {
         const id = a.payload.doc.id;
         return {id, ...data};
       })));
+    //create collection for trades from firestore
+    this.tradesCollectionRef = this.afs.collection('trades');
+    this.trades = this.tradesCollectionRef.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+
+
 
     this.getallusers();
     this.getAllOrders();
     this.getAllSuppliers();
     this.getAllProducts();
+
 
     this.loggedUser = this.allUsers.find(user => user.email === this.loggedEmail) as User;
     console.log(this.loggedUser);
@@ -161,7 +192,6 @@ export class ColdStoreDataService {
   }
 
 
-
 // add firebase CRUD methods here
   createProduct(product: Product) {
     // add product to firebase
@@ -183,6 +213,7 @@ export class ColdStoreDataService {
       soldQuantity: product.soldQuantity,
       discount: product.discount,
       sellPrice: product.sellPrice,
+      perCartoon: product.perCartoon,
     })
 
   }
@@ -344,6 +375,61 @@ export class ColdStoreDataService {
   getSupplierByName(name: string){
     return this.allSuppliers.find(supplier => supplier.name == name) as Supplier;
   }
+
+  //create function to update empstatus in the trades collection in firestore
+  updateEmpStatusReject(trade: Trade){
+    this.tradesCollectionRef.doc(trade.id).update({empStatus: 'rejected'});
+  }
+
+  //create function to update empstatus in the trades collection in firestore
+  updateEmpStatusAccept(trade: Trade){
+    this.tradesCollectionRef.doc(trade.id).update({empStatus: 'accepted'});
+  }
+
+  deleteTrade(trade: Trade) {
+    return this.tradesCollectionRef.doc(trade.id).delete();
+  }
+
+  //create function to update ownerstatus in the trades collection in firestore
+  updateOwnerStatusReject(trade: Trade){
+    //if owner rejects the trade, delete the trade from the trades collection and add the trade back to the shifts collection
+    this.tradesCollectionRef.doc(trade.id).update({ownerStatus: 'rejected'});
+    // this.deleteTrade(trade);
+  }
+
+  //create function to update ownerstatus in the trades collection in firestore
+  updateOwnerStatusAccept(trade: Trade){
+    this.tradesCollectionRef.doc(trade.id).update({ownerStatus: 'accepted'});
+  }
+
+  //disply all trades that have pending status for owner and accepted status for employee
+  // getPendingTradesForOwner(){
+  //   return this.trades.pipe(
+  //     map(trades => trades.filter(trade => trade.ownerStatus == 'pending' && trade.empStatus == 'accepted'))
+  //   );
+  // }
+
+
+  checkStatus(trade: Trade){
+    //if both emp and owner status is accepted
+    if(trade.empStatus=="accepted" && trade.ownerStatus=="accepted"){
+      this.updateStattobothaccept=true;
+      alert("both accepted");
+    }
+
+    if(trade.empStatus=="pending" && trade.ownerStatus=="pending"){
+      this.updateStattobothaccept=false;
+    }
+
+    if(trade.empStatus=="rejected" && trade.ownerStatus=="rejected"){
+      this.updateStattotrejectByOwn=true;
+    }
+
+    if(trade.empStatus=="rejected" && trade.ownerStatus=="pending"){
+      this.updateStattotrejectByEmp=true;
+    }
+  }
+
 
   checkRole(){
     for(let i=0;i<this.allUsers.length;i++){

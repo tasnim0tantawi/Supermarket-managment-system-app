@@ -39,7 +39,7 @@ export class AddProductPage implements OnInit {
       category: this.category,
       soldQuantity: this.soldQuantity,
       threshold: 20,
-      perCartoon: this.perCartoon,
+      perCartoon: this.perCartoon
     }
     this.coldStoreDataService.createProduct(this.product);
 

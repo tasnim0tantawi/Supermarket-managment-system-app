@@ -47,8 +47,7 @@ export class ProfilePage implements OnInit {
       }
       this.coldStoreDataService.presentToast("bottom", "Sad to see you leave :(").then(() => {
           // log out
-          this.coldStoreDataService.logged = false;
-          this.router.navigate(['/login']);
+          this.coldStoreDataService.logOut();
 
         }
       );

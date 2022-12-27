@@ -1,26 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Shifts
-    </ion-title>
+    <div align="center"><ion-title>OWNERS</ion-title></div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Shifts</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <div *ngIf="this.Datasrv.logged==false">
+
+
+
+
+
+  <div *ngIf="this.Datasrv.logged===false">
     <div align="center"><ion-button routerLink="/login" routerDirection="forward">Log in</ion-button></div>
   </div>
 
 
-  <div *ngIf="this.Datasrv.logged==true && this.Datasrv.loggedRole=='owner'">
+
+  <div *ngIf="this.Datasrv.logged===true && this.Datasrv.loggedRole==='owner'">
     <ion-segment [(ngModel)]="segchoice">
       <ion-segment-button value="shifts">Shifts Schedule</ion-segment-button>
       <ion-segment-button value="vspe">View Specific Shifts</ion-segment-button>
@@ -29,7 +25,7 @@
     </ion-segment>
 
 
-    <div *ngIf="segchoice=='shifts'">
+    <div *ngIf="segchoice==='shifts'">
 
       <ion-card *ngFor="let s of shifts | async" color="medium">
 
@@ -45,11 +41,11 @@
           </ion-segment>
 
           <br>
-          <div *ngIf="shiftchoice=='s1'" align="center">
+          <div *ngIf="shiftchoice==='s1'" align="center">
             <h1>{{s.shift1name}}</h1>
           </div>
 
-          <div *ngIf="shiftchoice=='s2'" align="center">
+          <div *ngIf="shiftchoice==='s2'" align="center">
             <h1>{{s.shift2name}}</h1>
           </div>
 
@@ -67,7 +63,14 @@
 
 
 
-    <div *ngIf="segchoice=='vspe'">
+
+
+
+
+
+
+
+    <div *ngIf="segchoice==='vspe'">
 
       <ion-item>
         <ion-label>Choose an Employee : </ion-label>
@@ -75,19 +78,19 @@
 
       <ion-select [(ngModel)]="selectedemp">
         <div *ngFor="let u of users | async">
-          <ion-select-option value="{{u.id}}" *ngIf="u.role=='employee'">{{u.name}}</ion-select-option>
+          <ion-select-option value="{{u.id}}" *ngIf="u.role==='employee'">{{u.name}}</ion-select-option>
         </div>
       </ion-select>
 
       <div align="center"><ion-button fill="outline" color="primary" (click)="changeshow()">Show employee Schedule</ion-button></div>
 
 
-      <div *ngIf="show==true && selectedemp!='' ">
+      <div *ngIf="show===true && selectedemp!=='' ">
         <div *ngFor="let s of shifts | async">
-          <ion-card *ngIf="s.shift1id==selectedemp || s.shift2id==selectedemp" color="medium">
+          <ion-card *ngIf="s.shift1id===selectedemp || s.shift2id===selectedemp" color="medium">
             <div align="center"><h2>{{s.date}}</h2></div>
-            <div *ngIf="s.shift1id==selectedemp" align="center"><h4>Shift1</h4></div>
-            <div *ngIf="s.shift2id==selectedemp" align="center"><h4>Shift2</h4></div>
+            <div *ngIf="s.shift1id===selectedemp" align="center"><h4>Shift1</h4></div>
+            <div *ngIf="s.shift2id===selectedemp" align="center"><h4>Shift2</h4></div>
           </ion-card>
         </div>
       </div>
@@ -96,20 +99,46 @@
 
 
 
-    <div *ngIf="segchoice=='free'">
+    <div *ngIf="segchoice==='free'">
 
       <div *ngFor="let s of shifts | async">
-        <ion-card *ngIf="s.shift1id=='None' || s.shift2id=='None'" color="medium">
+        <ion-card *ngIf="s.shift1id==='None' || s.shift2id==='None'" color="medium">
           <div align="center"><h2>{{s.date}}</h2></div>
-          <div *ngIf="s.shift1id=='None' " align="center"><h4>Shift1</h4></div>
-          <div *ngIf="s.shift2id=='None' " align="center"><h4>Shift2</h4></div>
+          <div *ngIf="s.shift1id==='None' " align="center"><h4>Shift1</h4></div>
+          <div *ngIf="s.shift2id==='None' " align="center"><h4>Shift2</h4></div>
         </ion-card>
       </div>
 
     </div>
 
-    <div *ngIf="segchoice=='trade'">
-      trade
+
+
+
+    <div *ngIf="segchoice==='trade'">
+      <div *ngFor="let t of trades | async">
+        <!-- && (t.empStatus='accepted'||t.tradeToName==='None')  && -->
+        <ion-card *ngIf="this.Datasrv.loggedRole==='owner'&&t.ownerStatus!=='rejected'&&(t.tradeToName==='None'||t.empStatus==='accepted')" color="light">
+          <div align="center"><h2>{{t.tradeDate}}</h2></div>
+          <div  align="center"><h4>
+            <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+            This trade pending until you accept it, from {{t.tradeFromName}}
+          </h4>
+          </div>
+          <div>
+            <h4>The status of your trade(TradeTo Emp): {{t.empStatus}}</h4>
+            <h4>The status of your trade(owner): {{t.ownerStatus}}</h4>
+          </div>
+          <ion-buttons align="center">
+            <ion-button fill="outline" color="primary" (click)="update(t)" *ngIf="t.empStatus==='accepted'&&t.ownerStatus==='pending'">Accept</ion-button>
+            <ion-button  fill="solid" color="success" *ngIf="t.empStatus==='accepted'&&t.ownerStatus==='accepted'">Request Accepted</ion-button>
+            <ion-button  fill="outline" color="danger" (click)="updatereject(t)">Reject</ion-button>
+          </ion-buttons>
+        </ion-card>
+      </div>
     </div>
+
+
+
+
   </div>
 </ion-content>

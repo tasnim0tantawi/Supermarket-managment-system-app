@@ -3,7 +3,7 @@ import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ColdStoreDataService, User, Shift } from "../../cold-store-data.service";
+import { ColdStoreDataService, User, Shift, Trade } from "../../cold-store-data.service";
 import { AddshiftPage } from '../../addshift/addshift.page';
 import { ModalController, NavController } from '@ionic/angular';
 
@@ -24,6 +24,7 @@ export class Tab2Page {
   public user : User = {} as User;
 
 
+
   shifts: Observable<Shift[]>;
   shiftsCollectionRef: AngularFirestoreCollection<Shift>;
 
@@ -34,9 +35,13 @@ export class Tab2Page {
   selectedemp:string="";
 
   show:boolean=false;
-
+  tradesCollectionRef: AngularFirestoreCollection<Trade>;
 
   allusers:User[]=[];
+  allshifts:Shift[]=[];
+
+  public trade : Trade = {} as Trade;
+  trades: Observable<Trade[]>;
 
 
 
@@ -62,9 +67,24 @@ export class Tab2Page {
         });
       })
     );
+    this.tradesCollectionRef = this.afs.collection('trades');
+    this.trades = this.tradesCollectionRef.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
 
-
+    this.getallShifts();
   }
+
+  getallShifts(){
+    this.shifts.subscribe( (data)=>{this.allshifts=data});
+  }
+
 
 
   async presentModal() {
@@ -74,7 +94,53 @@ export class Tab2Page {
     });
     return await modal.present();
   }
+  update(trade:Trade){
+    this.Datasrv.updateOwnerStatusAccept(trade);
+    //update the shifts by replacing tradeFrom with tradeTo and vice versa
+    // this.Datasrv.updateShifts(trade);
+    // and delete the trade
+    this.updateShifts(trade);
+    this.Datasrv.checkStatus(trade);
+    //delete the trade from trades
+    // this.Datasrv.deleteTrade(trade);
+    alert("Trade Accepted and Shifts Updated");
+  }
 
+  updatereject(trade:Trade){
+    this.Datasrv.updateOwnerStatusReject(trade);
+  }
+
+
+  //replace the id and name in shift1 with id and name of shift2
+  //replace the id and name in shift2 with id and name of shift1
+  updateShifts(trade: Trade){
+    //get the date with names of shift1 and shift2
+    for(let i=0;i<this.allshifts.length;i++){
+      if(this.allshifts[i].date==trade.tradeDate){
+        //save the shift id
+        const shift_id = this.allshifts[i].id;
+        if(trade.tradeFromName==this.allshifts[i].shift1name){
+          this.afs.collection('shifts').doc(shift_id).update({
+            shift1id: trade.tradeTo,
+            shift1name: trade.tradeToName,
+            shift2id: trade.tradeFrom,
+            shift2name: trade.tradeFromName
+          });
+        }
+        else{
+          this.afs.collection('shifts').doc(shift_id).update({
+            shift2id: trade.tradeTo,
+            shift2name: trade.tradeToName,
+            shift1id: trade.tradeFrom,
+            shift1name: trade.tradeFromName
+          });
+        }
+        alert(this.allshifts[i].shift1name);
+        alert(this.allshifts[i].shift2name);
+      }
+
+    }
+  }
 
   changeshow(){
     this.show=true;
