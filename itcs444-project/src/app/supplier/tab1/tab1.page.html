@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<h1>{{this.coldStoreDataService.loggedName}}'s Products:</h1>
+<h1>{{this.coldStoreDataService.loggedName | titlecase}}'s Products:</h1>
 
   <ion-card *ngFor="let product of this.coldStoreDataService.products | async">
     <div *ngIf="this.coldStoreDataService.loggedEmail == product.supplierEmail">

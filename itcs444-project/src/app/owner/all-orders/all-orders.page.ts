@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ColdStoreDataService, Order} from "../../cold-store-data.service";
+import {ColdStoreDataService, Order, Product} from "../../cold-store-data.service";
 
 @Component({
   selector: 'app-all-orders',
