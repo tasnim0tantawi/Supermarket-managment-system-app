@@ -259,6 +259,7 @@ export class ColdStoreDataService {
     return this.allProducts.find(product => product.name == name) as Product;
   }
 
+
   acceptOrder(order: Order, product: Product){
     let newQuantity = product.quantity + order.totalQuantity;
     // update order status in firebase, update supplier soldQuantity, update product quantity
@@ -332,6 +333,8 @@ export class ColdStoreDataService {
   updateSupplier(supplier: Supplier){
     // update provider in firebase
     return this.providersCollection.doc(supplier.id).update({
+      soldQuantity: supplier.soldQuantity,
+      noOrders: supplier.noOrders,
       name: supplier.name,
       phone: supplier.phone,
       logo: supplier.logo,

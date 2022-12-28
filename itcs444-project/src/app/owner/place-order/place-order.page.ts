@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ColdStoreDataService, Product} from "../../cold-store-data.service";
+import {ColdStoreDataService, Product, Supplier} from "../../cold-store-data.service";
 import {ActivatedRoute} from "@angular/router";
 import { NavController} from "@ionic/angular";
 
@@ -38,12 +38,22 @@ export class PlaceOrderPage implements OnInit {
       numOrdered: 1,
       numCartoons: this.numCartoons,
     }).then(() => {
+      let supplier = this.coldStoreDataService.allSuppliers.find((supplier) => {
+          return supplier.name === this.product.supplier;
+        }
+      ) as Supplier;
+
+      supplier.noOrders += 1;
+      supplier.soldQuantity+= this.numCartoons * this.product.perCartoon;
+      this.coldStoreDataService.providersCollection.doc(supplier.id).update(supplier);
+    }).then(() => {
       this.coldStoreDataService.presentToast("bottom","Order placed successfully");
       this.navCtrl.navigateBack('/owner/tabs/tab3');
     }).catch((err) => {
-      this.coldStoreDataService.presentToast("bottom","Error placing order");
+      this.coldStoreDataService.presentToast("bottom","Error: "+err);
     });
-    }
+
+  }
 
 
 

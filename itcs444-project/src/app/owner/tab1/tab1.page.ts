@@ -47,11 +47,11 @@ export class Tab1Page implements AfterViewInit {
           label: 'Number of Orders',
           data: this.supplierSales,
           backgroundColor: [
-            '#FFB6C1',
-            '#87CEFA',
-            '#FFD700',
-            '#90EE90',
-            '#BA55D3',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384'
           ],
           hoverBackgroundColor: [
             '#FFCE56',
@@ -94,9 +94,10 @@ export class Tab1Page implements AfterViewInit {
       options: {
         scales: {
           yAxis: {
-            beginAtZero: true
+            beginAtZero: true,
           }
         }
+
 
 
       }
