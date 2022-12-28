@@ -260,13 +260,15 @@ export class ColdStoreDataService {
   }
 
   acceptOrder(order: Order, product: Product){
+    let newQuantity = product.quantity + order.totalQuantity;
     // update order status in firebase, update supplier soldQuantity, update product quantity
      this.ordersCollection.doc(order.id).update({
       status: 'accepted'});
 
       this.productsCollection.doc(product.id).update({
-      quantity: product.quantity + order.totalQuantity
-    });
+      quantity: newQuantity}
+
+    );
   }
 
      rejectOrder(order: Order){

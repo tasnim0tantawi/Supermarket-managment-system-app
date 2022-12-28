@@ -19,7 +19,10 @@ export class ModifyProductPage implements OnInit {
   ngOnInit() {
   }
   updateProduct() {
-    this.coldStoreDataService.updateProduct(this.product);
+    this.coldStoreDataService.updateProduct(this.product).then(() => {
+      this.coldStoreDataService.presentToast("top","Product updated successfully");
+    }
+    );
   }
 
 }

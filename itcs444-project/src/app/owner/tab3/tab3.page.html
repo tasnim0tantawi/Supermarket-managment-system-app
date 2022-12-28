@@ -25,7 +25,15 @@
     <ion-select-option *ngFor="let supplier of suppliers" [value]="supplier.name">{{supplier.name}}</ion-select-option>
   </ion-select>
   </ion-item>
-
+  <ion-item>
+    <ion-label color="warning"> Sort By: </ion-label>
+    <ion-select [(ngModel)]="selectedSort" (ionChange)="sortProducts($event)">
+      <ion-select-option value="quantity">Quantity</ion-select-option>
+      <ion-select-option value="price">Price</ion-select-option>
+      <ion-select-option value="name">Name</ion-select-option>
+      <ion-select-option value="sold">Sold Quantity</ion-select-option>
+    </ion-select>
+  </ion-item>
   <ion-card *ngFor="let product of products">
 
     <ion-card-header>
@@ -46,6 +54,18 @@
           Price: {{product.price}} BHD
         </ion-label>
       </ion-item>
+      <ion-item *ngIf="product.discount==0">
+        <ion-label>
+          Selling Price: {{product.sellPrice}} BHD
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="product.discount!=0">
+        <ion-label>
+          Selling Price: <h2 style="text-decoration: line-through; color: lightgray;"> {{product.sellPrice}} BHD </h2>
+         <h2>{{product.sellPrice*(1-product.discount)}} BHD</h2>
+        </ion-label>
+      </ion-item>
+
       <ion-item>
         <ion-label>
           Available Quantity: {{product.quantity}}

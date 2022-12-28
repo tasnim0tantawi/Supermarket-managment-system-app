@@ -32,7 +32,7 @@
     </ion-col>
     <ion-col>
       <ion-item>
-        <ion-label color="warning">  {{numCartoons * product.perCartoon}} BHD </ion-label>
+        <ion-label color="warning">  {{numCartoons * product.perCartoon}}  </ion-label>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -45,18 +45,14 @@
     </ion-col>
     <ion-col>
       <ion-item>
-     <ion-label color="warning">  {{numCartoons * product.perCartoon * product.price}} </ion-label>
+     <ion-label color="warning">  {{numCartoons * product.perCartoon * product.price}} BHD </ion-label>
       </ion-item>
     </ion-col>
   </ion-row>
 
 
-
 </ion-grid>
-
   <ion-button (click)="placeOrder()">Place Order</ion-button>
-  <ion-button color="danger" routerLink="/owner/tabs/tab1">Cancel </ion-button>
-
-
+  <ion-button color="danger" routerLink="/owner/tabs/tab3">Cancel </ion-button>
 
 </ion-content>
