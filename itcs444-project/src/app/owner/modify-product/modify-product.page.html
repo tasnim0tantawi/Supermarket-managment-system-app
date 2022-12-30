@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Modify Product</ion-title>
+  <ion-toolbar color="new">
+    <ion-title align="center"><p>Modify Product</p></ion-title>
     <ion-button routerLink="/owner/tabs/tab3" slot="start" fill="clear" color="primary">
-      <ion-icon name="arrow-back"></ion-icon>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -20,11 +20,12 @@
       <ion-label position="floating">Threshold Quantity:</ion-label>
       <ion-input [(ngModel)]="product.threshold"></ion-input>
     </ion-item>
-
-  <ion-button (click)="updateProduct()">Update</ion-button>
-    <ion-button routerLink="/owner/tabs/tab3" slot="start" color="danger">
+<div align="center">
+  <ion-button color="submit" (click)="updateProduct()">Update</ion-button>
+    <ion-button color="dark" routerLink="/owner/tabs/tab3" slot="start" >
       Cancel
     </ion-button>
+  </div>
   </ion-list>
 
 </ion-content>

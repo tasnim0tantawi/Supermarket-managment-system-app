@@ -1,15 +1,17 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="new">
     <ion-button routerLink="/owner/tabs/tab3" slot="start" fill="clear" color="primary">
-      <ion-icon name="arrow-back"></ion-icon>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
     </ion-button>
-    <ion-title>Place Order</ion-title>
+    <ion-title align="center"><p>Place Order</p></ion-title>
 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div id="name">
   <h1>Order {{product.name}}</h1>
+</div>
 <ion-grid>
   <ion-row>
     <ion-col>
@@ -52,7 +54,8 @@
 
 
 </ion-grid>
-  <ion-button (click)="placeOrder()">Place Order</ion-button>
-  <ion-button color="danger" routerLink="/owner/tabs/tab3">Cancel </ion-button>
-
+<div align="center">
+  <ion-button color="submit" (click)="placeOrder()">Place Order</ion-button>
+  <ion-button color="dark" routerLink="/owner/tabs/tab3">Cancel </ion-button>
+</div>
 </ion-content>

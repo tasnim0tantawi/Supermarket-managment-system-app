@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{product.name | titlecase}} details</ion-title>
+  <ion-toolbar color="new">
+    <ion-title align="center"><P>{{product.name | titlecase}} details</P></ion-title>
     <ion-button routerLink="/supplier/tabs/tab1" slot="start" fill="clear" color="primary">
-      <ion-icon name="arrow-back"></ion-icon>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
     </ion-button>
 
   </ion-toolbar>
@@ -10,7 +10,7 @@
 
 <ion-content>
   <ion-list>
-      <ion-title>{{product.name}}</ion-title>
+      <ion-title><h2>{{product.name}}</h2></ion-title>
       <ion-item>
         <ion-label>Name</ion-label>
         <ion-input type="text" [(ngModel)]="product.name"></ion-input>
@@ -33,8 +33,8 @@
       </ion-item>
 
   </ion-list>
-  <ion-button expand="block" (click)="updateProduct()">Update Product</ion-button>
-  <ion-button expand="block"  color="danger" (click)="deleteProduct()">Delete Product</ion-button>
+  <ion-button expand="block" color="submit" (click)="updateProduct()"><p>Update Product</p></ion-button>
+  <ion-button expand="block"  color="dark" (click)="deleteProduct()">Delete Product</ion-button>
 
 
 

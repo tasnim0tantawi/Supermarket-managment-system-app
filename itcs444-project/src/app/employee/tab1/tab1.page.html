@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Trades
+  <ion-toolbar color="new">
+    <ion-title align="center">
+      <p>Trades</p>
     </ion-title>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,7 @@
 
 
   <div *ngIf="this.Datasrv.logged===false">
-    <div align="center"><ion-button routerLink="/login" routerDirection="forward">Log in</ion-button></div>
+    <div align="center"><ion-button routerLink="/login" routerDirection="forward" color="brown"><p>Log in</p></ion-button></div>
   </div>
 
 
@@ -28,8 +28,8 @@
 
 
     <div *ngIf="segchoice==='shifts'">
-
-      <ion-card *ngFor="let s of shifts | async" color="medium">
+        
+      <ion-card id="card" *ngFor="let s of shifts | async">
         <div *ngIf="s.shift2name===this.Datasrv.loggedName || s.shift1name===this.Datasrv.loggedName">
           <div align="center">
             <h3>{{s.date}}</h3>
@@ -37,8 +37,8 @@
           <ion-card-content>
 
             <ion-segment [(ngModel)]="shiftchoice" color="dark">
-              <ion-segment-button value="s1">Shift 1</ion-segment-button>
-              <ion-segment-button value="s2">Shift 2</ion-segment-button>
+              <ion-segment-button value="s1"><h5>Shift 1</h5></ion-segment-button>
+              <ion-segment-button value="s2"><h5>Shift 2</h5></ion-segment-button>
             </ion-segment>
 
             <br>
@@ -49,11 +49,12 @@
             <div *ngIf="shiftchoice==='s2'" align="center">
               <h1>{{s.shift2name}}</h1>
             </div>
-            <ion-button fill="outline" color="light" (click)="InsertTrade(s)" > Request Trade </ion-button>
+            <ion-button  fill="solid" color="submit" (click)="InsertTrade(s)" ><p>Request Trade</p></ion-button>
           </ion-card-content>
 
         </div>
       </ion-card>
+    
 
     </div>
 
@@ -61,7 +62,7 @@
     <div *ngIf="segchoice==='status'">
 
       <div *ngFor="let t of trades | async">
-        <ion-card *ngIf="(t.tradeToName!==this.Datasrv.loggedName) && (t.tradeFromName===this.Datasrv.loggedName) || (t.tradeToName==='None' ||  t.tradeFromName==='None')" color="light">
+        <ion-card id="card" *ngIf="(t.tradeToName!==this.Datasrv.loggedName) && (t.tradeFromName===this.Datasrv.loggedName) || (t.tradeToName==='None' ||  t.tradeFromName==='None')" color="light">
           <div align="center"><h2>{{t.tradeDate}}</h2></div>
           <div align="center"><h4>
             <ion-icon name="arrow-forward-circle-outline"></ion-icon>
@@ -83,7 +84,7 @@
 
     <div *ngIf="segchoice==='pending'">
       <div *ngFor="let t of trades | async">
-        <ion-card *ngIf="(t.tradeFromName!==this.Datasrv.loggedName) && (t.tradeToName===this.Datasrv.loggedName)" color="light">
+        <ion-card id="card" *ngIf="(t.tradeFromName!==this.Datasrv.loggedName) && (t.tradeToName===this.Datasrv.loggedName)" color="light">
           <div align="center"><h2>{{t.tradeDate}}</h2></div>
           <div  align="center"><h4>
             <ion-icon name="arrow-forward-circle-outline"></ion-icon>
@@ -94,9 +95,10 @@
             <h4>The status of your trade: {{t.empStatus}}</h4>
             <h4>The status of your trade(owner): {{t.ownerStatus}}</h4>
           </div>
+          <br>
           <ion-buttons align="center">
-            <ion-button fill="outline" color="primary" (click)="update(t)">Accept</ion-button>
-            <ion-button  fill="outline" color="danger" (click)="updatereject(t)">Reject</ion-button>
+            <ion-button fill="solid" color="submit" (click)="update(t)">Accept</ion-button>
+            <ion-button  fill="solid" color="dark" (click)="updatereject(t)">Reject</ion-button>
           </ion-buttons>
         </ion-card>
       </div>

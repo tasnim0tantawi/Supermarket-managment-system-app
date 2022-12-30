@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <div align="center"><ion-title>ADD SHIFT</ion-title></div>
+  <ion-toolbar color="new">
+    <div align="center"><ion-title><p>ADD SHIFT</p></ion-title></div>
   </ion-toolbar>
 </ion-header>
 
@@ -32,10 +32,11 @@
     </div>
   </ion-select>
 
+  <img id="logo" height="100px" src="assets\cart.webp"><br>
 
   <div align="center">
-    <ion-button fill="outline" color="dark" (click)="dismiss()">CLOSE</ion-button>
-    <ion-button fill="outline" color="primary" (click)="insert()">CREATE SHIFT</ion-button>
+    <ion-button fill="outline" color="submit" (click)="callAll()">CREATE SHIFT</ion-button>
+    <ion-button fill="outline" color="brown" (click)="dismiss()">CLOSE</ion-button>
   </div>
 
 

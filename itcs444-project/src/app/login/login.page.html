@@ -1,30 +1,25 @@
 <ion-header>
-  <ion-toolbar color="warning">
-    <div align="center"><ion-title>Log In</ion-title></div>
+  <ion-toolbar color="new" id="toolbar">
+    <div  align="center"><ion-title>Log In</ion-title></div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div align="center" style="margin: 15px;">
-    <img id="logo" height="200px" src="assets\logo.png">
+    <img id="logo" height="250px" src="assets\gro.jpg">
   </div>
 
   <div id="all"  align="center">
-    <ion-item>
-      <ion-label>Email:</ion-label>
-      <ion-input placeholder="Enter email here" [(ngModel)]="email" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Password:</ion-label>
-      <ion-input placeholder="Enter password here" [(ngModel)]="password" type="password"></ion-input>
-    </ion-item>
+    <div align="center">
+      <ion-input id="input" placeholder="Enter email here" [(ngModel)]="email" type="text"></ion-input>
+      <ion-input id="input" placeholder="Enter password here" [(ngModel)]="password" type="password"></ion-input>
+    </div>
   </div>
   <br>
   <div align="center" >
-    <ion-button (click)="login()">Sign In</ion-button>
+    <ion-button color="new" (click)="login()"><p>Sign In</p></ion-button>
   </div>
-  <ion-button routerLink="/register" fill="clear" color="warning" expand="block"> Don't have an account? Sign Up</ion-button>
+  <ion-button routerLink="/register" fill="clear" color="dark" expand="block"> Don't have an account? Sign Up</ion-button>
 
 
 

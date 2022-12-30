@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="new">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Orders
+    <ion-title align="center">
+      <p>Orders</p>
     </ion-title>
 
   </ion-toolbar>
@@ -39,8 +39,8 @@
     <ion-card-content>
       <ion-label> Status: {{order.status}}</ion-label>
     </ion-card-content>
-    <ion-button (click)="acceptOrder(order)">Accept</ion-button>
-    <ion-button color="danger"(click)="rejectOrder(order)">Reject</ion-button>
+    <ion-button color="submit"(click)="acceptOrder(order)">Accept</ion-button>
+    <ion-button color="dark"(click)="rejectOrder(order)">Reject</ion-button>
     </div>
 
   </ion-card>

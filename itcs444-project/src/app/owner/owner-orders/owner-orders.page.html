@@ -1,15 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="new">
     <ion-buttons slot="start">
       <ion-button routerLink="/owner/tabs/tab3" slot="start" fill="clear" color="primary">
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon color="light" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Cold Store Invoices</ion-title>
+    <ion-title align="center"><p>Cold Store Invoices</p></ion-title>
 
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <div id="id">
   <ion-item>
     <ion-label> Select Product:</ion-label>
   <ion-select [(ngModel)]="selectedProduct" (ionChange)="filterInvoice($event)">
@@ -17,6 +18,7 @@
     <ion-select-option *ngFor="let product of this.coldStoreDataService.allProducts" [value]="product.name">{{product.name}}</ion-select-option>
   </ion-select>
   </ion-item>
+</div>
 
   <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
     <div *ngIf="order.status==='accepted'">
@@ -50,8 +52,8 @@
       <ion-label> Status: {{order.status}}</ion-label>
     </ion-card-content>
       <ion-card-content *ngIf="order.favorite">
-        <ion-label color="warning"> Glad you loved it <3 </ion-label>
-        <ion-button fill="clear" (click)="reOrder(order.id)"> Re-Order?</ion-button>
+        <ion-label color="dark"><h3> Glad you loved it <3 </h3></ion-label><br>
+        <ion-button color="submit" fill="solid" (click)="reOrder(order.id)"> Re-Order?</ion-button>
       </ion-card-content>
     </div>
     </div>

@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ColdStoreDataService, Shift, User} from "../cold-store-data.service";
 
-
+declare var dynamics: any;
 
 @Component({
   selector: 'app-addshift',
@@ -118,7 +118,9 @@ export class AddshiftPage implements OnInit {
 
 
       this.addshift(this.shift)
-      .then ((response)=>{alert("insert succeessfully")})
+      .then ((response)=>{
+        this.Datasrv.presentToast("top","insert succeessfully");
+      })
       .catch((err)=>{alert("error")});
        this.shift={} as Shift;
     }
@@ -130,9 +132,27 @@ export class AddshiftPage implements OnInit {
 
 
 
+    animate(){
+      var elem = document.getElementById("logo")
+              dynamics.animate(elem, {
+            translateX: 	150,
+        
+            
+              },
+              {
+            type: 	dynamics.spring,
+            frequency: 	200,
+            friction: 	200,
+            duration: 	1500,
+              complete: () => {
+               
+          }
+    })}
 
-
-
+callAll(){
+  this.insert();
+  this.animate();
+}
 
 
 

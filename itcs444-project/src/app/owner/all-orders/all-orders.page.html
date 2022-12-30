@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="new">
     <ion-button routerLink="/owner/tabs/tab1" slot="start" fill="clear" color="primary">
-      <ion-icon name="arrow-back"></ion-icon>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
     </ion-button>
-    <ion-title>All Orders</ion-title>
+    <ion-title align="center"><p>All Orders</p></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -24,7 +24,7 @@
 
   </ion-segment>
 
-    <ion-card *ngFor="let order of this.coldStoreDataService.orders | async">
+    <ion-card id="card" *ngFor="let order of this.coldStoreDataService.orders | async">
       <div *ngIf="segChoice == order.status || segChoice=='all'" >
       <ion-card-header> {{order.title}}</ion-card-header>
         <ion-list>

@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar color="warning">
-    <div align="center">
+  <ion-toolbar color="new">
+    <div id="toolbar" align="center">
       <ion-title>Register</ion-title>
     </div>
   </ion-toolbar>
@@ -52,9 +52,8 @@
       <ion-input type="text" [(ngModel)]="phone"></ion-input>
     </ion-item>
   </div>
-  <div id="buttons">
-    <ion-button color="light" expand="block" routerLink="/login">Cancel</ion-button>
-    <ion-button id="move" (click)="addUser()">Register</ion-button>
-
+  <div align="center">
+    <ion-button id="buttons" color="submit" expand="block" (click)="addUser()"><p>Register</p></ion-button>
+    <ion-button id="buttons" color="light" expand="block" routerLink="/login"><p>Cancel</p></ion-button>
   </div>
 </ion-content>

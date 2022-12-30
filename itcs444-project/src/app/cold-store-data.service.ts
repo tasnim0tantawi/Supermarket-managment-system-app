@@ -399,7 +399,6 @@ export class ColdStoreDataService {
   updateOwnerStatusReject(trade: Trade){
     //if owner rejects the trade, delete the trade from the trades collection and add the trade back to the shifts collection
     this.tradesCollectionRef.doc(trade.id).update({ownerStatus: 'rejected'});
-    // this.deleteTrade(trade);
   }
 
   //create function to update ownerstatus in the trades collection in firestore
@@ -464,6 +463,4 @@ export class ColdStoreDataService {
     this.navCtrl.navigateBack('/login');
     return this.afAuth.signOut();
   }
-
-
 }

@@ -1,8 +1,8 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <div align="center"><ion-title>OWNERS</ion-title></div>
+  <ion-toolbar color="new">
+    <div align="center"><ion-title><p>OWNERS</p></ion-title></div>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -12,7 +12,7 @@
 
 
   <div *ngIf="this.Datasrv.logged===false">
-    <div align="center"><ion-button routerLink="/login" routerDirection="forward">Log in</ion-button></div>
+    <div align="center"><ion-button routerLink="/login" routerDirection="forward" color="brown"><p>Log in</p></ion-button></div>
   </div>
 
 
@@ -27,7 +27,7 @@
 
     <div *ngIf="segchoice==='shifts'">
 
-      <ion-card *ngFor="let s of shifts | async" color="medium">
+      <ion-card id="card" *ngFor="let s of shifts | async" color="medium">
 
         <div align="center">
           <h3>{{s.date}}</h3>
@@ -54,7 +54,7 @@
       </ion-card>
 
       <div align="center">
-        <ion-button fill="outline" color="dark" (click)="presentModal()">ADD NEW SHIFT</ion-button>
+        <ion-button fill="solid" color="submit" (click)="presentModal()"><p>ADD NEW SHIFT</p></ion-button>
       </div>
 
     </div>

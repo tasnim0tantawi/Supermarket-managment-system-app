@@ -1,15 +1,19 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="new">
     <ion-button routerLink="/{{this.coldStoreDataService.loggedRole.toLowerCase()}}/tabs/tab1" slot="start" fill="clear" color="primary">
-      <ion-icon name="arrow-back"></ion-icon>
+      <ion-icon color="light" name="arrow-back"></ion-icon>
     </ion-button>
-    <ion-title>Profile</ion-title>
+    <ion-title align="center"><p>Profile</p></ion-title>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
+  <div align="center">
+  <div id="proPic" >
   <ion-img [src]="this.user.image"></ion-img>
+</div>
+</div>
   <ion-list>
     <ion-item>
       <ion-label>name</ion-label>
@@ -23,9 +27,10 @@
       <ion-label>Role</ion-label>
       <ion-input [(ngModel)]="this.user.role" type="text"></ion-input>
     </ion-item>
-
   </ion-list>
-  <ion-button (click)="updateUser()">Update Information</ion-button>
-  <ion-button color="danger" (click)="deleteUser()">Delete User</ion-button>
 
+<div align="center">
+  <ion-button color="submit" (click)="updateUser()">Update Information</ion-button>
+  <ion-button color="light" (click)="deleteUser()">Delete User</ion-button>
+</div>
 </ion-content>

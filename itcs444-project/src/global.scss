@@ -24,3 +24,28 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.ion-color-new {
+    --ion-color-base: var(--ion-color-new) !important;
+    --ion-color-base-rgb: var(--ion-color-new-rgb) !important;
+    --ion-color-contrast: var(--ion-color-new-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-new-shade) !important;
+    --ion-color-tint: var(--ion-color-new-tint) !important;
+    }
+    .ion-color-submit {
+        --ion-color-base: var(--ion-color-submit);
+        --ion-color-base-rgb: var(--ion-color-submit-rgb);
+        --ion-color-contrast: var(--ion-color-submit-contrast);
+        --ion-color-contrast-rgb: var(--ion-color-submit-contrast-rgb);
+        --ion-color-shade: var(--ion-color-submit-shade);
+        --ion-color-tint: var(--ion-color-submit-tint);
+    }
+    .ion-color-brown {
+        --ion-color-base: var(--ion-color-brown);
+        --ion-color-base-rgb: var(--ion-color-brown-rgb);
+        --ion-color-contrast: var(--ion-color-brown-contrast);
+        --ion-color-contrast-rgb: var(--ion-color-brown-contrast-rgb);
+        --ion-color-shade: var(--ion-color-brown-shade);
+        --ion-color-tint: var(--ion-color-brown-tint);
+    }
